@@ -53,8 +53,47 @@ app.post('/neighbourhood/details', function(req,res) {
 });
 
 
+// A list of crime categories
+app.post('/crime/categories', function(req,res) {
+
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.writeHead(200, {"Content-Type": "application/json"});
+
+  console.log("Requested: Crime categories");
+
+  // GET request using 'request'
+  request.get({
+    headers: {'Content-Type': 'application/json'},
+      url: 'https://data.police.uk/api/crime-categories'
+    }, function(error, response, body){
+      console.log(body);
+      var cats = [];
+      for(var i=0;i<body.length; i++) {
+        cats.push(body[i].url);
+      }
+    // Return to a client
+    res.end(body);
+  });
+});
+
+
+function getCrimeCategories() {
+	$.ajax({url: 'https://data.police.uk/api/crime-categories',
+		dataType: 'json',
+		success: function(data) {
+			console.log(data.length);
+			var cats = [];
+			for(var i=0;i<data.length; i++) {
+				cats.push(data[i].url);
+			}
+			categories = cats;
+		}});
+}
+
+
 app.get('/', function(req,res) {
-  res.send("Hello to CrimeStats! \n Documentation is coming...");
+  res.send("Hello to CrimeStats! <br> Documentation is coming...");
 });
 var port = process.env.PORT || 1337;
 app.listen(port);
