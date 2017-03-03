@@ -53,6 +53,8 @@ app.post('/neighbourhood/details', function(req,res) {
 });
 
 
-
+app.get('/', function(req,res) {
+  res.send("Hello to CrimeStats!");
+});
 var port = process.env.PORT || 1337;
 app.listen(port);
