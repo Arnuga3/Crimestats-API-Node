@@ -54,7 +54,7 @@ app.post('/neighbourhood/details', function(req,res) {
 
 
 app.get('/', function(req,res) {
-  res.send("Hello to CrimeStats!");
+  res.send("Hello to CrimeStats! \n Documentation is coming...");
 });
 var port = process.env.PORT || 1337;
 app.listen(port);
