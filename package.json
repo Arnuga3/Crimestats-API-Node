@@ -9,6 +9,7 @@
     "request": "^2.79.0"
   },
   "devDependencies": {
+    "express": "^4.14.1",
     "body-parser": "^1.17.0",
     "request": "^2.79.0"
   },
