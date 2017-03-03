@@ -54,6 +54,5 @@ app.post('/neighbourhood/details', function(req,res) {
 
 
 
-app.listen(1337,function(){
-  console.log("Started on PORT 8080");
-});
+var port = process.env.PORT || 1337;
+app.listen(port);
