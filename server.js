@@ -73,7 +73,7 @@ app.post('/crime-categories', function(req,res) {
         cats.push(body[i].url);
       }
     // Return to a client
-    res.end(cats);
+    res.end(JSON.stringify(cats));
   });
 });
 
