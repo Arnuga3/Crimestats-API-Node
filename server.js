@@ -50,7 +50,7 @@ app.post('/neighbourhood/details', function(req,res) {
     // Return to a client
     res.end(body);
   });
-});s
+});
 
 
 // A list of crime categories
