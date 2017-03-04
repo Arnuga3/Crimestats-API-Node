@@ -48,7 +48,7 @@ app.post('/neighbourhood/details', function(req,res) {
   }, function(error, response, body){
     console.log(body);
     // Return to a client
-    res.send(body);
+    res.send(""+body);
     res.end(body);
   });
 });
