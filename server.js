@@ -68,9 +68,10 @@ app.post('/crime-categories', function(req,res) {
       url: 'https://data.police.uk/api/crime-categories'
     }, function(error, response, body){
       var cats = [];
-      for(var i=0; i<body.length; i++) {
-        cats.push(body[i].name);
-        console.log(body[i].name);
+      var data = JSON.parse(body);
+      for(var i=0; i<data.length; i++) {
+        cats.push(data[i].name);
+        console.log(data[i].name);
       }
     // Return to a client
     res.end(JSON.stringify(cats));
