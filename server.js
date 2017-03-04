@@ -48,6 +48,7 @@ app.post('/neighbourhood/details', function(req,res) {
   }, function(error, response, body){
     console.log(body);
     // Return to a client
+    res.send(body);
     res.end(body);
   });
 });
@@ -76,20 +77,6 @@ app.post('/crime-categories', function(req,res) {
     res.end(body);
   });
 });
-
-
-function getCrimeCategories() {
-	$.ajax({url: 'https://data.police.uk/api/crime-categories',
-		dataType: 'json',
-		success: function(data) {
-			console.log(data.length);
-			var cats = [];
-			for(var i=0;i<data.length; i++) {
-				cats.push(data[i].url);
-			}
-			categories = cats;
-		}});
-}
 
 
 app.get('/', function(req,res) {
