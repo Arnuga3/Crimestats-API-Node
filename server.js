@@ -83,4 +83,4 @@ app.get('/', function(req,res) {
 });
 
 var port = process.env.PORT || 1337;
-app.listen(8080);
+app.listen(port);
