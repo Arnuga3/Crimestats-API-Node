@@ -67,10 +67,10 @@ app.post('/crime-categories', function(req,res) {
     headers: {'Content-Type': 'application/json'},
       url: 'https://data.police.uk/api/crime-categories'
     }, function(error, response, body){
-      console.log(body);
       var cats = [];
-      for(var i=0;i<body.length; i++) {
-        cats.push(body[i].url);
+      for(var i=0; i<body.length; i++) {
+        cats.push(body[i].name);
+        console.log(body[i].name);
       }
     // Return to a client
     res.end(JSON.stringify(cats));
