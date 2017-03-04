@@ -81,5 +81,6 @@ app.post('/crime-categories', function(req,res) {
 app.get('/', function(req,res) {
   res.send("Hello to CrimeStats! <br> Documentation is coming...");
 });
+
 var port = process.env.PORT || 1337;
-app.listen(port);
+app.listen(8080);
