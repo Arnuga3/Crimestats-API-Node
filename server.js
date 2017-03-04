@@ -48,10 +48,9 @@ app.post('/neighbourhood/details', function(req,res) {
   }, function(error, response, body){
     console.log(body);
     // Return to a client
-    res.send(""+body);
     res.end(body);
   });
-});
+});s
 
 
 // A list of crime categories
@@ -74,7 +73,7 @@ app.post('/crime-categories', function(req,res) {
         cats.push(body[i].url);
       }
     // Return to a client
-    res.end(body);
+    res.end(cats);
   });
 });
 
