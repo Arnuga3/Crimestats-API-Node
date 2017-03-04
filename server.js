@@ -54,7 +54,7 @@ app.post('/neighbourhood/details', function(req,res) {
 
 
 // A list of crime categories
-app.post('/crime/categories', function(req,res) {
+app.post('/crime-categories', function(req,res) {
 
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
