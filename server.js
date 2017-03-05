@@ -84,7 +84,6 @@ app.post('/crime-cat-data', function(req,res) {
         var data = JSON.parse(responses[0]);
         for(var i=0; i<data.length; i++) {
           categories.push(data[i].name);
-          console.log(data[i].name);
         }
 
       } else if (index == 1) {
@@ -92,6 +91,8 @@ app.post('/crime-cat-data', function(req,res) {
         for(var i=0;i<categories.length; i++) {
           catCounted.push({cat: [categories[i]], num: 0});
         }
+        console.log("catNum: " + catCounted.length);
+        
         var crimeData = JSON.parse(responses[1]);
         // Counting crimes
         for(var i=1;i<crimeData.length; i++) {
