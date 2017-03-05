@@ -185,9 +185,9 @@ app.get('/crime-cat-data', function(req,res) {
 */
 
 app.get('/', function(req,res) {
-  res.send("Hello to CrimeStats! <br> To get crime categories and a number of each in the specific area: <br> " +
-            "GET <br> http://crimestatsapi.azurewebsites.net/crime-cat-data?poly=" + " (format of poly: lat,lng:lat,lng:.. whrere the first and the last points are the same)" +
-            "<br> POST <br> url: http://crimestatsapi.azurewebsites.net/crime-cat-data" +
+  res.send("<h1>Hello to CrimeStats!</h1> <br> <h3>To get <b>crime categories</b> and a <b>number of each</b> in the specific area:</h3> <br> " +
+            "GET <br> <i>http://crimestatsapi.azurewebsites.net/crime-cat-data?poly=</i>" + " (format of poly: lat,lng:lat,lng:.. whrere the first and the last points are the same)" +
+            "<br> POST <br> url: <i>http://crimestatsapi.azurewebsites.net/crime-cat-data</i>" +
             "<br> data: {poly: poly (format of poly: lat,lng:lat,lng:.. whrere the first and the last points are the same)}");
 });
 
