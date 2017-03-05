@@ -53,7 +53,7 @@ app.post('/neighbourhood/details', function(req,res) {
 
 
 // A list of crime categories and numbers
-app.all('/crime-cat-data', function(req,res) {
+app.post('/crime-cat-data', function(req,res) {
 
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -111,11 +111,75 @@ app.all('/crime-cat-data', function(req,res) {
               + catCounted[i].num);
           }
           // Get back to user!!!
-          res.send(JSON.stringify(catCounted));
           res.end(JSON.stringify(catCounted));
         });
     });
 });
+
+// A list of crime categories and numbers
+app.get('/crime-cat-data', function(req,res) {
+
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.writeHead(200, {"Content-Type": "text/plain"});
+
+  var poly = res;
+  console.log(poly);
+  console.log("Requested: Crime categories");
+
+  // GET request using 'request'
+  var requests = ['https://data.police.uk/api/crime-categories',
+                  'https://data.police.uk/api/crimes-street/all-crime?poly=' + poly];
+  var responses = [];
+  var categories = [];
+  var catCounted = [];
+  var index = 0;
+
+    request.get({
+      headers: {'Content-Type': 'application/json'},
+      url: requests[0]
+    }, function(error, response, body){
+      responses.push(body);
+
+        var data = JSON.parse(responses[0]);
+        console.log(data);
+        for(var i=0; i<data.length; i++) {
+          categories.push(data[i].url);
+        }
+
+        request.get({
+          headers: {'Content-Type': 'application/json'},
+          url: requests[1]
+        }, function(error, response, body){
+          responses.push(body);
+
+          for(var i=0;i<categories.length; i++) {
+            catCounted.push({cat: [categories[i]], num: 0});
+          }
+
+          var crimeData = JSON.parse(responses[1]);
+          console.log(crimeData);
+          // Counting crimes
+          for(var i=1;i<crimeData.length; i++) {
+            for (var j=0; j<catCounted.length; j++) {
+              if (crimeData[i].category == catCounted[j].cat)
+              catCounted[j].num += 1;
+            }
+          }
+          // Sorting by number, high to low
+          catCounted.sort(function(a, b){
+              return b.num-a.num;
+          });
+          for(var i=0;i<catCounted.length; i++) {
+            console.log("category: " + catCounted[i].cat + " | num: "
+              + catCounted[i].num);
+          }
+          // Get back to user!!!
+          res.send(JSON.stringify(catCounted));
+        });
+    });
+});
+
 
 /*
 
