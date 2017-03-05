@@ -97,7 +97,7 @@ app.post('/crime-cat-data', function(req,res) {
         // Counting crimes
         for(var i=1;i<crimeData.length; i++) {
           for (var j=0; j<catCounted.length; j++) {
-            if (crimeData[i].category == catCounted[j].cat)
+            if (crimeData[i].name == catCounted[j].cat)
             catCounted[j].num += 1;
           }
         }
