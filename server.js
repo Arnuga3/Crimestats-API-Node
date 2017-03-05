@@ -46,14 +46,13 @@ app.post('/neighbourhood/details', function(req,res) {
     headers: {'Content-Type': 'application/json'},
     url: 'https://data.police.uk/api/' + force + '/' + neighbourhood
   }, function(error, response, body){
-    //console.log(body);
     // Return to a client
     res.end(body);
   });
 });
 
 
-// A list of crime categories
+// A list of crime categories and numbers
 app.post('/crime-cat-data', function(req,res) {
 
   res.header("Access-Control-Allow-Origin", "*");
@@ -72,13 +71,11 @@ app.post('/crime-cat-data', function(req,res) {
   var catCounted = [];
   var index = 0;
 
-  //for (var i=0; i<requests.length; i++) {
     request.get({
       headers: {'Content-Type': 'application/json'},
       url: requests[0]
     }, function(error, response, body){
       responses.push(body);
-      //if (index == 0) {
 
         var data = JSON.parse(responses[0]);
         console.log(data);
@@ -91,7 +88,6 @@ app.post('/crime-cat-data', function(req,res) {
           url: requests[1]
         }, function(error, response, body){
           responses.push(body);
-      //} else if (index == 1) {
 
           for(var i=0;i<categories.length; i++) {
             catCounted.push({cat: [categories[i]], num: 0});
@@ -115,11 +111,8 @@ app.post('/crime-cat-data', function(req,res) {
               + catCounted[i].num);
           }
         });
-      //}
-      //index += 1;
     });
-  //}
-
+    res.send(catCounted);
 });
 
 /*
