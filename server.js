@@ -73,7 +73,7 @@ app.post('/crime-cat-data', function(req,res) {
   var index = 0;
 
   for (var i=0; i<requests.length; i++) {
-      request.get({
+    request.get({
       headers: {'Content-Type': 'application/json'},
       url: requests[index]
     }, function(error, response, body){
@@ -111,7 +111,7 @@ app.post('/crime-cat-data', function(req,res) {
       }
 
     });
-    index++;
+    index += 1;
   }
 
 });
