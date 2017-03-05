@@ -78,10 +78,10 @@ app.post('/crime-cat-data', function(req,res) {
       url: requests[index]
     }, function(error, response, body){
       responses.push(body);
-      console.log("Index: " + index);
       if (index == 0) {
 
         var data = JSON.parse(responses[0]);
+        console.log(data);
         for(var i=0; i<data.length; i++) {
           categories.push(data[i].name);
         }
