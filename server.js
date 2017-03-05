@@ -71,7 +71,7 @@ app.post('/crime-cat-data', function(req,res) {
   var categories = [];
   var catCounted = [];
 
-  for (i in requests) {
+  for (var i=0; i<requests.length; i++) {
     request.get({
       headers: {'Content-Type': 'application/json'},
       url: requests[i]
@@ -111,7 +111,7 @@ app.post('/crime-cat-data', function(req,res) {
 
     });
   }
-  
+
 });
 
 /*
