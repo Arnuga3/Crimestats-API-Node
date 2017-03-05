@@ -46,7 +46,7 @@ app.post('/neighbourhood/details', function(req,res) {
     headers: {'Content-Type': 'application/json'},
     url: 'https://data.police.uk/api/' + force + '/' + neighbourhood
   }, function(error, response, body){
-    console.log(body);
+    //console.log(body);
     // Return to a client
     res.end(body);
   });
@@ -77,6 +77,8 @@ app.post('/crime-cat-data', function(req,res) {
     });
   }
   var categories = [];
+  console.log("response 0");
+  console.log(responses[0])
   var data = JSON.parse(responses[0]);
   for(var i=0; i<data.length; i++) {
     categories.push(data[i].name);
