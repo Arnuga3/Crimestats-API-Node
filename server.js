@@ -16,14 +16,14 @@ app.post('/neighbourhood', function(req,res) {
 
   var lat = req.body.lat;
   var lng = req.body.lng;
-  console.log("Request Coordinates: " + lat + " : " + lng);
+  //console.log("Request Coordinates: " + lat + " : " + lng);
 
   // GET request using 'request'
   request.get({
     headers: {'Content-Type': 'application/json'},
     url: 'https://data.police.uk/api/locate-neighbourhood?q=' + lat + ',' + lng
   }, function(error, response, body){
-    console.log(body);
+    //console.log(body);
     // Return to a client
     res.end(body);
   });
@@ -39,7 +39,7 @@ app.post('/neighbourhood/details', function(req,res) {
 
   var force = req.body.force;
   var neighbourhood = req.body.neighbourhood;
-  console.log("Requested: " + force + " | " + neighbourhood);
+  //console.log("Requested: " + force + " | " + neighbourhood);
 
   // GET request using 'request'
   request.get({
@@ -60,8 +60,8 @@ app.post('/crime-cat-data', function(req,res) {
   res.writeHead(200, {"Content-Type": "text/plain"});
 
   var poly = req.body.poly;
-  console.log(poly);
-  console.log("Requested: Crime categories");
+  //console.log(poly);
+  //console.log("Requested: Crime categories");
 
   // GET request using 'request'
   var requests = ['https://data.police.uk/api/crime-categories',
@@ -78,7 +78,7 @@ app.post('/crime-cat-data', function(req,res) {
       responses.push(body);
 
         var data = JSON.parse(responses[0]);
-        console.log(data);
+        //console.log(data);
         for(var i=0; i<data.length; i++) {
           categories.push(data[i].url);
         }
@@ -94,7 +94,7 @@ app.post('/crime-cat-data', function(req,res) {
           }
 
           var crimeData = JSON.parse(responses[1]);
-          console.log(crimeData);
+          //console.log(crimeData);
           // Counting crimes
           for(var i=1;i<crimeData.length; i++) {
             for (var j=0; j<catCounted.length; j++) {
@@ -106,10 +106,11 @@ app.post('/crime-cat-data', function(req,res) {
           catCounted.sort(function(a, b){
               return b.num-a.num;
           });
+          /*
           for(var i=0;i<catCounted.length; i++) {
             console.log("category: " + catCounted[i].cat + " | num: "
               + catCounted[i].num);
-          }
+          }*/
           // Get back to user!!!
           res.end(JSON.stringify(catCounted));
         });
@@ -120,8 +121,8 @@ app.post('/crime-cat-data', function(req,res) {
 app.get('/crime-cat-data', function(req,res) {
 
   var poly = req.query.poly;
-  console.log(poly);
-  console.log("Requested: Crime categories");
+  //console.log(poly);
+  //console.log("Requested: Crime categories");
 
   // GET request using 'request'
   var requests = ['https://data.police.uk/api/crime-categories',
@@ -138,7 +139,7 @@ app.get('/crime-cat-data', function(req,res) {
       responses.push(body);
 
         var data = JSON.parse(responses[0]);
-        console.log(data);
+        //console.log(data);
         for(var i=0; i<data.length; i++) {
           categories.push(data[i].url);
         }
@@ -154,7 +155,7 @@ app.get('/crime-cat-data', function(req,res) {
           }
 
           var crimeData = JSON.parse(responses[1]);
-          console.log(crimeData);
+          //console.log(crimeData);
           // Counting crimes
           for(var i=1;i<crimeData.length; i++) {
             for (var j=0; j<catCounted.length; j++) {
@@ -166,10 +167,11 @@ app.get('/crime-cat-data', function(req,res) {
           catCounted.sort(function(a, b){
               return b.num-a.num;
           });
+          /*
           for(var i=0;i<catCounted.length; i++) {
             console.log("category: " + catCounted[i].cat + " | num: "
               + catCounted[i].num);
-          }
+          }*/
           // Get back to user!!!
           res.send(JSON.stringify(catCounted));
         });
@@ -183,6 +185,8 @@ app.get('/crime-cat-data', function(req,res) {
 */
 
 app.get('/', function(req,res) {
+  res.write("To get crime categories and a number of each in the specific area: <br> " +
+            "http://crimestatsapi.azurewebsites.net/crime-cat-data");
   res.send("Hello to CrimeStats! <br> Documentation is coming...");
 });
 
