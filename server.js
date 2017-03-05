@@ -70,15 +70,16 @@ app.post('/crime-cat-data', function(req,res) {
   var responses = [];
   var categories = [];
   var catCounted = [];
-
+  var index = 0;
   for (var i=0; i<requests.length; i++) {
+    index = i;
     request.get({
       headers: {'Content-Type': 'application/json'},
-      url: requests[i]
+      url: requests[index]
     }, function(error, response, body){
       responses.push(body);
-      console.log("Index: " + i);
-      if (i == 0) {
+      console.log("Index: " + index);
+      if (index == 0) {
 
         var data = JSON.parse(responses[0]);
         for(var i=0; i<data.length; i++) {
@@ -86,7 +87,7 @@ app.post('/crime-cat-data', function(req,res) {
           console.log(data[i].name);
         }
 
-      } else if (i == 1) {
+      } else if (index == 1) {
 
         for(var i=0;i<categories.length; i++) {
           catCounted.push({cat: [categories[i]], num: 0});
