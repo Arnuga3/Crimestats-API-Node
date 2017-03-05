@@ -29,6 +29,28 @@ app.post('/neighbourhood', function(req,res) {
   });
 });
 
+// lat, lng (from a client) to request force, neighbourhood form API
+app.get('/neighbourhood', function(req,res) {
+
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.writeHead(200, {"Content-Type": "application/json"});
+
+  var lat = req.query.lat;
+  var lng = req.query.lng;
+  //console.log("Request Coordinates: " + lat + " : " + lng);
+
+  // GET request using 'request'
+  request.get({
+    headers: {'Content-Type': 'application/json'},
+    url: 'https://data.police.uk/api/locate-neighbourhood?q=' + lat + ',' + lng
+  }, function(error, response, body){
+    //console.log(body);
+    // Return to a client
+    res.send(body);
+  });
+});
+
 
 // Neighbourhood full details
 app.post('/neighbourhood/details', function(req,res) {
