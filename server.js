@@ -78,7 +78,7 @@ app.post('/crime-cat-data', function(req,res) {
   }
   var categories = [];
   console.log("response 0");
-  console.log(responses[0])
+  console.log(responses.length);
   var data = JSON.parse(responses[0]);
   for(var i=0; i<data.length; i++) {
     categories.push(data[i].name);
