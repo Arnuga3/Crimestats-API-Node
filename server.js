@@ -58,7 +58,7 @@ app.post('/crime-cat-data', function(req,res) {
 
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.writeHead(200, {"Content-Type": "application/json"});
+  //res.writeHead(200, {"Content-Type": "application/json"});
 
   var poly = req.body;
   console.log(poly);
