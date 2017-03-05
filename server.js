@@ -74,6 +74,7 @@ app.post('/crime-cat-data', function(req,res) {
       url: requests[i]
     }, function(error, response, body){
       responses.push(body);
+      console.log(body);
     });
   }
   var categories = [];
