@@ -186,9 +186,9 @@ app.get('/crime-cat-data', function(req,res) {
 
 app.get('/', function(req,res) {
   res.send("Hello to CrimeStats! <br> To get crime categories and a number of each in the specific area: <br> " +
-            "GET <br> http://crimestatsapi.azurewebsites.net/crime-cat-data?poly" + " (format of poly: lat,lng:lat,lng:.. whrere the first and the last points are the same)" +
-            "POST <br> urL: http://crimestatsapi.azurewebsites.net/crime-cat-data" +
-            "data: {poly: poly (format of poly: lat,lng:lat,lng:.. whrere the first and the last points are the same)}");
+            "GET <br> http://crimestatsapi.azurewebsites.net/crime-cat-data?poly=" + " (format of poly: lat,lng:lat,lng:.. whrere the first and the last points are the same)" +
+            "<br> POST <br> url: http://crimestatsapi.azurewebsites.net/crime-cat-data" +
+            "<br> data: {poly: poly (format of poly: lat,lng:lat,lng:.. whrere the first and the last points are the same)}");
 });
 
 var port = process.env.PORT || 1337;
