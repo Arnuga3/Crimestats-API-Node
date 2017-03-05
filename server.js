@@ -185,9 +185,8 @@ app.get('/crime-cat-data', function(req,res) {
 */
 
 app.get('/', function(req,res) {
-  res.write("To get crime categories and a number of each in the specific area: <br> " +
+  res.send("Hello to CrimeStats! <br> To get crime categories and a number of each in the specific area: <br> " +
             "http://crimestatsapi.azurewebsites.net/crime-cat-data");
-  //res.send("Hello to CrimeStats! <br> Documentation is coming...");
 });
 
 var port = process.env.PORT || 1337;
