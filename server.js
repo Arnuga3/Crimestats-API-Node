@@ -119,10 +119,6 @@ app.post('/crime-cat-data', function(req,res) {
 // A list of crime categories and numbers
 app.get('/crime-cat-data', function(req,res) {
 
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.writeHead(200, {"Content-Type": "text/plain"});
-
   var poly = req.query.poly;
   console.log(poly);
   console.log("Requested: Crime categories");
