@@ -61,7 +61,7 @@ app.post('/crime-cat-data', function(req,res) {
   res.writeHead(200, {"Content-Type": "application/json"});
 
   var poly = req.body;
-  console.log("POLY: " + poly);
+  //console.log("POLY: " + poly);
   console.log("Requested: Crime categories");
 
   // GET request using 'request'
