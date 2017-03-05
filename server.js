@@ -77,7 +77,7 @@ app.post('/crime-cat-data', function(req,res) {
       url: requests[i]
     }, function(error, response, body){
       responses.push(body);
-
+      console.log("Index: " + i);
       if (i == 0) {
 
         var data = JSON.parse(responses[0]);
