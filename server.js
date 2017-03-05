@@ -72,13 +72,13 @@ app.post('/crime-cat-data', function(req,res) {
   var catCounted = [];
   var index = 0;
 
-  for (var i=0; i<requests.length; i++) {
+  //for (var i=0; i<requests.length; i++) {
     request.get({
       headers: {'Content-Type': 'application/json'},
-      url: requests[index]
+      url: requests[0]
     }, function(error, response, body){
       responses.push(body);
-      if (index == 0) {
+      //if (index == 0) {
 
         var data = JSON.parse(responses[0]);
         console.log(data);
@@ -86,33 +86,38 @@ app.post('/crime-cat-data', function(req,res) {
           categories.push(data[i].name);
         }
 
-      } else if (index == 1) {
+        request.get({
+          headers: {'Content-Type': 'application/json'},
+          url: requests[1]
+        }, function(error, response, body){
+      //} else if (index == 1) {
 
-        for(var i=0;i<categories.length; i++) {
-          catCounted.push({cat: [categories[i]], num: 0});
-        }
-
-        var crimeData = JSON.parse(responses[1]);
-        console.log(crimeData);
-        // Counting crimes
-        for(var i=1;i<crimeData.length; i++) {
-          for (var j=0; j<catCounted.length; j++) {
-            if (crimeData[i].name == catCounted[j].cat)
-            catCounted[j].num += 1;
+          for(var i=0;i<categories.length; i++) {
+            catCounted.push({cat: [categories[i]], num: 0});
           }
-        }
-        // Sorting by number, high to low
-        catCounted.sort(function(a, b){
-            return b.num-a.num;
+
+          var crimeData = JSON.parse(responses[1]);
+          console.log(crimeData);
+          // Counting crimes
+          for(var i=1;i<crimeData.length; i++) {
+            for (var j=0; j<catCounted.length; j++) {
+              if (crimeData[i].name == catCounted[j].cat)
+              catCounted[j].num += 1;
+            }
+          }
+          // Sorting by number, high to low
+          catCounted.sort(function(a, b){
+              return b.num-a.num;
+          });
+          for(var i=0;i<catCounted.length; i++) {
+            console.log("category: " + catCounted[i].cat + " | num: "
+              + catCounted[i].num);
+          }
         });
-        for(var i=0;i<catCounted.length; i++) {
-          console.log("category: " + catCounted[i].cat + " | num: "
-            + catCounted[i].num);
-        }
-      }
-      index += 1;
+      //}
+      //index += 1;
     });
-  }
+  //}
 
 });
 
