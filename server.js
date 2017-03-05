@@ -91,9 +91,9 @@ app.post('/crime-cat-data', function(req,res) {
         for(var i=0;i<categories.length; i++) {
           catCounted.push({cat: [categories[i]], num: 0});
         }
-        console.log("catNum: " + catCounted.length);
-        
+
         var crimeData = JSON.parse(responses[1]);
+        console.log(crimeData);
         // Counting crimes
         for(var i=1;i<crimeData.length; i++) {
           for (var j=0; j<catCounted.length; j++) {
