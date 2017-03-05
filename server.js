@@ -112,7 +112,7 @@ app.post('/crime-cat-data', function(req,res) {
           }
         });
     });
-    res.end(JSON.stringify(catCounted);
+    res.end(JSON.stringify(catCounted));
 });
 
 /*
