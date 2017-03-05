@@ -72,9 +72,8 @@ app.post('/crime-cat-data', function(req,res) {
   var catCounted = [];
   var index = 0;
 
-  for (var i=0; i<requests.length; i++) {
-    index = i;
-    request.get({
+  for (var i=0, index=i; i<requests.length; i++) {
+      request.get({
       headers: {'Content-Type': 'application/json'},
       url: requests[index]
     }, function(error, response, body){
@@ -93,7 +92,7 @@ app.post('/crime-cat-data', function(req,res) {
         for(var i=0;i<categories.length; i++) {
           catCounted.push({cat: [categories[i]], num: 0});
         }
-        var crimeData = responses[1];
+        var crimeData = JSON.parse(responses[1]);
         // Counting crimes
         for(var i=1;i<crimeData.length; i++) {
           for (var j=0; j<catCounted.length; j++) {
