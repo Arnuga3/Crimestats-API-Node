@@ -53,7 +53,7 @@ app.post('/neighbourhood/details', function(req,res) {
 
 
 // A list of crime categories and numbers
-app.post('/crime-cat-data', function(req,res) {
+app.all('/crime-cat-data', function(req,res) {
 
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
