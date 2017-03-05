@@ -109,9 +109,8 @@ app.post('/crime-cat-data', function(req,res) {
             + catCounted[i].num);
         }
       }
-
+      index += 1;
     });
-    index += 1;
   }
 
 });
