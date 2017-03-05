@@ -111,6 +111,7 @@ app.all('/crime-cat-data', function(req,res) {
               + catCounted[i].num);
           }
           // Get back to user!!!
+          res.send(JSON.stringify(catCounted));
           res.end(JSON.stringify(catCounted));
         });
     });
