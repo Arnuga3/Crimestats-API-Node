@@ -90,6 +90,7 @@ app.post('/crime-cat-data', function(req,res) {
           headers: {'Content-Type': 'application/json'},
           url: requests[1]
         }, function(error, response, body){
+          responses.push(body);
       //} else if (index == 1) {
 
           for(var i=0;i<categories.length; i++) {
