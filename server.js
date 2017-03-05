@@ -68,47 +68,50 @@ app.post('/crime-cat-data', function(req,res) {
   var requests = ['https://data.police.uk/api/crime-categories',
                   'https://data.police.uk/api/crimes-street/all-crime?poly=' + poly];
   var responses = [];
+  var categories = [];
+  var catCounted = [];
+
   for (i in requests) {
     request.get({
       headers: {'Content-Type': 'application/json'},
       url: requests[i]
     }, function(error, response, body){
       responses.push(body);
-      console.log(body);
+
+      if (i == 0) {
+
+        var data = JSON.parse(responses[0]);
+        for(var i=0; i<data.length; i++) {
+          categories.push(data[i].name);
+          console.log(data[i].name);
+        }
+
+      } else if (i == 1) {
+
+        for(var i=0;i<categories.length; i++) {
+          catCounted.push({cat: [categories[i]], num: 0});
+        }
+        var crimeData = JSON.parse(responses[1]);
+        // Counting crimes
+        for(var i=1;i<crimeData.length; i++) {
+          for (var j=0; j<catCounted.length; j++) {
+            if (data[i].category == catCounted[j].cat)
+            catCounted[j].num += 1;
+          }
+        }
+        // Sorting by number, high to low
+        catCounted.sort(function(a, b){
+            return b.num-a.num;
+        });
+        for(var i=0;i<catCounted.length; i++) {
+          console.log("category: " + catCounted[i].cat + " | num: "
+            + catCounted[i].num);
+        }
+      }
+
     });
   }
-  var categories = [];
-  console.log("response 0");
-  console.log(responses.length);
-  var data = JSON.parse(responses[0]);
-  for(var i=0; i<data.length; i++) {
-    categories.push(data[i].name);
-    console.log(data[i].name);
-  }
-  // Array to store objects with category and number of crimes
-  var numOfEachCat = [];
-  // Assigning 0 default values to each category
-  for(var i=0;i<categories.length; i++) {
-    numOfEachCat.push({cat: [categories[i]], num: 0});
-  }
-  var crimeData = JSON.parse(responses[1]);
-  // Counting crimes
-  for(var i=1;i<crimeData.length; i++) {
-    for (var j=0; j<numOfEachCat.length; j++) {
-      if (data[i].category == numOfEachCat[j].cat)
-      numOfEachCat[j].num += 1;
-    }
-  }
-  // Sorting by number, high to low
-  numOfEachCat.sort(function(a, b){
-      return b.num-a.num;
-  });
-  for(var i=0;i<numOfEachCat.length; i++) {
-    console.log("category: " + numOfEachCat[i].cat + " | num: "
-      + numOfEachCat[i].num);
-  }
-
-
+  
 });
 
 /*
