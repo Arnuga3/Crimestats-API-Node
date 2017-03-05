@@ -42,11 +42,12 @@ app.get('/neighbourhood', function(req,res) {
 
   // GET request using 'request'
   request.get({
+    headers: {'Content-Type': 'application/json'},
     url: 'https://data.police.uk/api/locate-neighbourhood?q=' + lat + ',' + lng
   }, function(error, response, body){
     //console.log(body);
     // Return to a client
-    res.send(body);
+    res.send(JSON.stringify(body));
   });
 });
 
