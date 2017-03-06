@@ -69,6 +69,23 @@ app.post('/neighbourhood/details', function(req,res) {
   });
 });
 
+// Neighbourhood full details
+app.get('/neighbourhood/details', function(req,res) {
+
+  var force = req.query.force;
+  var neighbourhood = req.query.neighbourhood;
+  //console.log("Requested: " + force + " | " + neighbourhood);
+
+  // GET request using 'request'
+  request.get({
+    headers: {'Content-Type': 'application/json'},
+    url: 'https://data.police.uk/api/' + force + '/' + neighbourhood
+  }, function(error, response, body){
+    // Return to a client
+    res.send(body);
+  });
+});
+
 
 // A list of crime categories and numbers
 app.post('/crime-cat-data', function(req,res) {
