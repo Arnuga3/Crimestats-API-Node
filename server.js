@@ -7,6 +7,22 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
+app.post('/force', function(req, res) {
+
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.writeHead(200, {"Content-Type": "application/json"});
+
+  var lat = req.body.centerPoint.lat;
+  var lng = req.body.centerPoint.lng;
+  var onMapIDs = req.body.onMapIDs;
+  console.log(lat);
+  console.log(lng);
+  console.log(onMapIDs.length);
+
+});
+
+
 // lat, lng (from a client) to request force, neighbourhood form API
 app.post('/neighbourhood', function(req,res) {
 
