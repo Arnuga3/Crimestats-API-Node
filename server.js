@@ -95,6 +95,7 @@ app.post('/crime-cat-data', function(req,res) {
   res.writeHead(200, {"Content-Type": "text/plain"});
 
   var poly = req.body.poly;
+  var period = req.body.period;
   //console.log(poly);
   //console.log("Requested: Crime categories");
 
@@ -158,6 +159,7 @@ app.post('/crime-cat-data', function(req,res) {
 app.get('/crime-cat-data', function(req,res) {
 
   var poly = req.query.poly;
+  var period = req.query.period;
   //console.log(poly);
   //console.log("Requested: Crime categories");
 
