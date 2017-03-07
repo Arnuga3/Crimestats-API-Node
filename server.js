@@ -202,6 +202,7 @@ app.get('/crime-cat-data', function(req,res) {
           catCounted.sort(function(a, b){
               return b.num-a.num;
           });
+          catCounted.pop();
           /*
           for(var i=0;i<catCounted.length; i++) {
             console.log("category: " + catCounted[i].cat + " | num: "
