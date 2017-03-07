@@ -142,6 +142,8 @@ app.post('/crime-cat-data', function(req,res) {
               return b.num-a.num;
           });
 
+          catCounted.pop();
+
           for(var i=0;i<catCounted.length; i++) {
             console.log("category: " + catCounted[i].cat + " | num: "
               + catCounted[i].num);
