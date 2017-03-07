@@ -145,7 +145,7 @@ app.post('/crime-cat-data', function(req,res) {
           for(var i=0;i<catCounted.length; i++) {
             console.log("category: " + catCounted[i].cat + " | num: "
               + catCounted[i].num);
-
+          }
           // Get back to user!!!
           res.end(JSON.stringify(catCounted));
         });
