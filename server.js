@@ -66,12 +66,12 @@ app.post('/force', function(req, res) {
         topL: corners[1],
         botR: corners[3]
       };
-
+      console.log("before");
       var onMapViewNeighb = [];
       for (var i=0; i<responses.length; i++) {
         if (contains(rectangle, responses[i])) {
           onMapViewNeighb.push(responses[i]);
-          console.log(responses[i]);
+          console.log(onMapViewNeighb[i]);
         }
       }
 
