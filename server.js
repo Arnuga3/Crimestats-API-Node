@@ -14,9 +14,10 @@ app.post('/force', function(req, res) {
   res.writeHead(200, {"Content-Type": "application/json"});
 
   console.log(JSON.parse(req.body.data));
-  var lat = req.body.lat;
-  var lng = req.body.lng;
-  var onMapIDs = req.body.onMapIDs;
+  var obj = JSON.parse(req.body.data);
+  var lat = obj.lat;
+  var lng = obj.lng;
+  var onMapIDs = obj.onMapIDs;
   console.log(lat);
   console.log(lng);
   console.log(onMapIDs.length);
