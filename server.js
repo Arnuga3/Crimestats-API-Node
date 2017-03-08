@@ -33,7 +33,7 @@ app.post('/force', function(req, res) {
       headers: {'Content-Type': 'application/json'},
       url: 'https://data.police.uk/api/' + force + '/neighbourhoods'
     }, function(error, response, body){
-      //console.log(body);
+      console.log(body);
       res.end(body);
     });
   });
