@@ -39,6 +39,18 @@ app.post('/force', function(req, res) {
       var neighbourhoods = JSON.parse(body);
       var requests = [];
       var responses = [];
+      var onMapViewNeighb = [];
+      var contains = function(a, b) {
+        return b.lat > a.topL.lat &&
+                b.lat < a.botR.lat &&
+                b.lng > a.topL.lng &&
+                b.lng < a.botR.lng;
+      };
+      var rectangle = {
+        topL: corners[1],
+        botR: corners[3]
+      };
+
       for (var i=0; i<neighbourhoods.length; i++) {
         requests.push("https://data.police.uk/api/" + force + "/" + neighbourhoods[i].id);
         //console.log(requests[i]);
@@ -49,26 +61,22 @@ app.post('/force', function(req, res) {
           url: requests[i]
         }, function(error, response, body){
           var parsed = JSON.parse(body);
-          responses.push({id: parsed.id, lat: parsed.centre.latitude, lng: parsed.centre.longitude});
-          //console.log(responses);
+          var point = { lat:parsed.centre.latitude,
+                        lng: parsed.centre.longitude};
+          if (contains(rectangle, point)) {
+            onMapViewNeighb.push({id: parsed.id, lat: parsed.centre.latitude, lng: parsed.centre.longitude});
+            console.log(onMapViewNeighb[i]);
+          }
+          //responses.push({id: parsed.id, lat: parsed.centre.latitude, lng: parsed.centre.longitude});
+          console.log(onMapViewNeighb);
         });
-        
       }
       //console.log(corners);
       /*// If the point inside the map view triangle
-      var contains = function(a, b) {
-        return b.lat > a.topL.lat &&
-                b.lat < a.botR.lat &&
-                b.lng > a.topL.lng &&
-                b.lng < a.botR.lng;
-      };
 
-      var rectangle = {
-        topL: corners[1],
-        botR: corners[3]
-      };
+
+
       console.log("before");
-      var onMapViewNeighb = [];
       for (var i=0; i<responses.length; i++) {
         if (contains(rectangle, responses[i])) {
           onMapViewNeighb.push(responses[i]);
