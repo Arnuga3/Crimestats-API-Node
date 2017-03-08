@@ -59,7 +59,11 @@ app.post('/force', function(req, res) {
         request.get({
           headers: {'Content-Type': 'application/json'},
           url: requests[i]
-        }, function(error, response, body){
+        }, function(error, response, body, function(){
+
+                    console.log(onMapViewNeighb.length);
+                    console.log(responses.length);
+        }) {
           var parsed = JSON.parse(body);
           var point = { lat:parsed.centre.latitude,
                         lng: parsed.centre.longitude};
@@ -67,9 +71,8 @@ app.post('/force', function(req, res) {
             onMapViewNeighb.push({id: parsed.id, lat: parsed.centre.latitude, lng: parsed.centre.longitude});
           }
           responses.push({id: parsed.id, lat: parsed.centre.latitude, lng: parsed.centre.longitude});
+
         });
-        console.log(onMapViewNeighb.length);
-        console.log(responses.length);
       }
       //console.log(corners);
       /*// If the point inside the map view triangle
