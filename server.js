@@ -48,7 +48,8 @@ app.post('/force', function(req, res) {
           url: requests[i]
         }, function(error, response, body){
           var parsed = JSON.parse(body);
-          var neighbArr = [neighbourhoods[i].id];
+          var id = requests[i].substr(0, requests[i].lastIndexOf("/"));
+          var neighbArr = [id];
           responses.push({lat: parsed.centre.latitude, lng: parsed.centre.longitude});
           console.log(responses);
         });
