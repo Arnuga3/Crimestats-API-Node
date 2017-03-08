@@ -47,8 +47,8 @@ app.post('/force', function(req, res) {
           headers: {'Content-Type': 'application/json'},
           url: requests[i]
         }, function(error, response, body){
-          responses.push(body);
-          console.log(body);
+          responses.push({lat: body.centre.latitude, lng: body.centre.longitude});
+          console.log(responses[i]);
         });
 
 
