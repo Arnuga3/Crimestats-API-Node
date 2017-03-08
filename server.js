@@ -13,7 +13,7 @@ app.post('/force', function(req, res) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.writeHead(200, {"Content-Type": "application/json"});
 
-  console.log(JSON.parse(req.body.data));
+  //console.log(JSON.parse(req.body.data));
   var obj = JSON.parse(req.body.data);
   var lat = obj.center.lat;
   var lng = obj.center.lng;
@@ -27,14 +27,15 @@ app.post('/force', function(req, res) {
   }, function(error, response, body){
     var data = JSON.parse(body);
     var force = data.force;
-    console.log(force);
+    //console.log(force);
 
     request.get({
       headers: {'Content-Type': 'application/json'},
       url: 'https://data.police.uk/api/' + force + '/neighbourhoods'
     }, function(error, response, body){
-      console.log(body);
-      res.end(body);
+      //console.log(body);
+      //res.end(body);
+      var neighbourhoods = JSON.parse(body);
     });
   });
 
