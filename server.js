@@ -4,7 +4,7 @@ var request = require('request');
 var app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
 
 
 app.post('/force', function(req, res) {
