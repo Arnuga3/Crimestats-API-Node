@@ -53,7 +53,28 @@ app.post('/force', function(req, res) {
           //console.log(responses);
         });
       }
-      console.log(corners);
+      //console.log(corners);
+      // If the point inside the map view triangle
+      var contains = function(a, b) {
+        return b.lat > a.topL.lat &&
+                b.lat < a.botR.lat &&
+                b.lng > a.topL.lng &&
+                b.lng < a.botR.lng;
+      };
+
+      var rectangle = {
+        topL: corners[1],
+        botR: corners[3]
+      };
+
+      var onMapViewNeighb = [];
+      for (var i=0; i<responses.length; i++) {
+        if (contains(rectangle, responses[i])) {
+          onMapViewNeighb.push(responses[i]);
+          console.log(responses[i]);
+        }
+      }
+
     });
   });
 
