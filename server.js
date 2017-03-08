@@ -3,15 +3,13 @@ var bodyParser = require("body-parser");
 var request = require('request');
 var app = express();
 
-//app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
 app.post('/force', function(req, res) {
 
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.writeHead(200, {"Content-Type": "application/json"});
+
   console.log(req.body);
   var lat = req.body.centerPoint.lat;
   var lng = req.body.centerPoint.lng;
