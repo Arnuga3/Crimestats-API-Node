@@ -67,9 +67,9 @@ app.post('/force', function(req, res) {
             onMapViewNeighb.push({id: parsed.id, lat: parsed.centre.latitude, lng: parsed.centre.longitude});
           }
           responses.push({id: parsed.id, lat: parsed.centre.latitude, lng: parsed.centre.longitude});
-          console.log(onMapViewNeighb.length);
-          console.log(responses.length);
         });
+        console.log(onMapViewNeighb.length);
+        console.log(responses.length);
       }
       //console.log(corners);
       /*// If the point inside the map view triangle
