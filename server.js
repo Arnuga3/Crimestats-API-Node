@@ -68,9 +68,6 @@ app.post('/force', function(req, res) {
           }
           responses.push({id: parsed.id, lat: parsed.centre.latitude, lng: parsed.centre.longitude});
 
-        }).on('response', function() {
-          console.log(onMapViewNeighb.length);
-          console.log(responses.length);
         });
       }
       //console.log(corners);
