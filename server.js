@@ -27,7 +27,8 @@ app.post('/force', function(req, res) {
   }, function(error, response, body){
     var data = JSON.parse(body);
     var force = data.force;
-    
+    console.log(force);
+
     request.get({
       headers: {'Content-Type': 'application/json'},
       url: 'https://data.police.uk/api/' + force + '/neighbourhoods'
