@@ -13,7 +13,7 @@ app.post('/force', function(req, res) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.writeHead(200, {"Content-Type": "application/json"});
 
-  //console.log(JSON.parse(req.body.data));
+  console.log(JSON.parse(req.body.data));
   var obj = JSON.parse(req.body.data);
   var lat = obj.lat;
   var lng = obj.lng;
