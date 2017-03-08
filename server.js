@@ -6,7 +6,7 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-
+//>>>>>>>> THE MAIN METHOD
 app.post('/force', function(req, res) {
 
   res.header("Access-Control-Allow-Origin", "*");
@@ -36,10 +36,17 @@ app.post('/force', function(req, res) {
       //console.log(body);
       //res.end(body);
       var neighbourhoods = JSON.parse(body);
+      var requests = [];
+      for (var i=0; i<neighbourhoods.length; i++) {
+        requests.push("https://data.police.uk/api/" + force + "/" + neighbourhoods[i].id);
+        console.log(requests[i]);
+      }
     });
   });
 
 });
+
+//>>>>>>>> END
 
 
 // lat, lng (from a client) to request force, neighbourhood form API
