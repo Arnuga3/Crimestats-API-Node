@@ -13,14 +13,29 @@ app.post('/force', function(req, res) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.writeHead(200, {"Content-Type": "application/json"});
 
-  console.log(JSON.parse(req.body.data));
+  //console.log(JSON.parse(req.body.data));
   var obj = JSON.parse(req.body.data);
   var lat = obj.lat;
   var lng = obj.lng;
   var onMapIDs = obj.onMapIDs;
-  console.log(lat);
-  console.log(lng);
-  console.log(onMapIDs.length);
+
+  var force = "";
+
+  request.get({
+    headers: {'Content-Type': 'application/json'},
+    url: 'https://data.police.uk/api/locate-neighbourhood?q=' + lat + ',' + lng
+  }, function(error, response, body){
+    //console.log(body);
+    force = body.force;
+
+    request.get({
+      headers: {'Content-Type': 'application/json'},
+      url: 'https://data.police.uk/api/' + force + '/neighbourhoods'
+    }, function(error, response, body){
+      //console.log(body);
+      res.end(body);
+    });
+  });
 
 });
 
