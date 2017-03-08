@@ -13,7 +13,7 @@ app.post('/force', function(req, res) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.writeHead(200, {"Content-Type": "application/json"});
 
-  console.log(req.body);
+  console.log(JSON.parse(req.body.data));
   var lat = req.body.lat;
   var lng = req.body.lng;
   var onMapIDs = req.body.onMapIDs;
