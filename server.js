@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.post('/force', function(req, res) {
 
 
-  console.log(JSON.parse(req.body);
+  console.log(JSON.parse(req.body));
   var lat = req.body.centerPoint.lat;
   var lng = req.body.centerPoint.lng;
   var onMapIDs = req.body.onMapIDs;
