@@ -65,10 +65,10 @@ app.post('/force', function(req, res) {
                         lng: parsed.centre.longitude};
           if (contains(rectangle, point)) {
             onMapViewNeighb.push({id: parsed.id, lat: parsed.centre.latitude, lng: parsed.centre.longitude});
-            console.log(onMapViewNeighb[i]);
           }
-          //responses.push({id: parsed.id, lat: parsed.centre.latitude, lng: parsed.centre.longitude});
-          console.log(onMapViewNeighb);
+          responses.push({id: parsed.id, lat: parsed.centre.latitude, lng: parsed.centre.longitude});
+          console.log(onMapViewNeighb.length);
+          console.log(responses.length);
         });
       }
       //console.log(corners);
