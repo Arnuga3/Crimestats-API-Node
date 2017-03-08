@@ -26,7 +26,7 @@ app.post('/force', function(req, res) {
     url: 'https://data.police.uk/api/locate-neighbourhood?q=' + lat + ',' + lng
   }, function(error, response, body){
     console.log(body);
-    force = body.force;
+    force = body.query.force;
       console.log(force);
     request.get({
       headers: {'Content-Type': 'application/json'},
