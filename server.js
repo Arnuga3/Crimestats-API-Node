@@ -51,10 +51,9 @@ app.post('/force', function(req, res) {
           var parsed = JSON.parse(body);
           responses.push({id: parsed.id, lat: parsed.centre.latitude, lng: parsed.centre.longitude});
           //console.log(responses);
-        }, function(error, response, body) {
-          console.log(corners);
         });
       }
+      console.log(corners);
     });
   });
 
