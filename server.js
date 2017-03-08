@@ -47,7 +47,7 @@ app.post('/force', function(req, res) {
           headers: {'Content-Type': 'application/json'},
           url: requests[i]
         }, function(error, response, body){
-          responses.push(body);
+          responses.push(JSON.parse(body));
           console.log(responses);
         });
 
