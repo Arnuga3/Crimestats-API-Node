@@ -37,9 +37,21 @@ app.post('/force', function(req, res) {
       //res.end(body);
       var neighbourhoods = JSON.parse(body);
       var requests = [];
+      var responses = [];
       for (var i=0; i<neighbourhoods.length; i++) {
         requests.push("https://data.police.uk/api/" + force + "/" + neighbourhoods[i].id);
-        console.log(requests[i]);
+        //console.log(requests[i]);
+      }
+      for (var i=0; i<requests.length; i++) {
+        request.get({
+          headers: {'Content-Type': 'application/json'},
+          url: requests[i]
+        }, function(error, response, body){
+          responses.push(JSON.parse(body));
+          console.log(responses[i]);
+        });
+
+
       }
     });
   });
