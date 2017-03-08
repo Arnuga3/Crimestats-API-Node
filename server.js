@@ -59,11 +59,7 @@ app.post('/force', function(req, res) {
         request.get({
           headers: {'Content-Type': 'application/json'},
           url: requests[i]
-        }, function(error, response, body, function(){
-
-                    console.log(onMapViewNeighb.length);
-                    console.log(responses.length);
-        }) {
+        }, function(error, response, body) {
           var parsed = JSON.parse(body);
           var point = { lat:parsed.centre.latitude,
                         lng: parsed.centre.longitude};
@@ -72,6 +68,9 @@ app.post('/force', function(req, res) {
           }
           responses.push({id: parsed.id, lat: parsed.centre.latitude, lng: parsed.centre.longitude});
 
+        }).on('data', function() {
+          console.log(onMapViewNeighb.length);
+          console.log(responses.length);
         });
       }
       //console.log(corners);
