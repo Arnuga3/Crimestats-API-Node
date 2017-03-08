@@ -47,12 +47,13 @@ app.post('/force', function(req, res) {
           headers: {'Content-Type': 'application/json'},
           url: requests[i]
         }, function(error, response, body){
-          responses.push(JSON.parse(body));
+          var parsed = JSON.parse(body);
+          responses.push({lat: parsed.centre.latitude, lng: parsed.centre.longitude});
           console.log(responses);
         });
-
-
       }
+    }, function(error, response, body) {
+
     });
   });
 
