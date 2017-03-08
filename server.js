@@ -18,6 +18,7 @@ app.post('/force', function(req, res) {
   var lat = obj.center.lat;
   var lng = obj.center.lng;
   var onMapIDs = obj.onMapIDs;
+  var corners = obj.corners;
 
   var force = "";
 
@@ -49,11 +50,11 @@ app.post('/force', function(req, res) {
         }, function(error, response, body){
           var parsed = JSON.parse(body);
           responses.push({id: parsed.id, lat: parsed.centre.latitude, lng: parsed.centre.longitude});
-          console.log(responses);
+          //console.log(responses);
         });
       }
     }, function(error, response, body) {
-
+      console.log(corners);
     });
   });
 
