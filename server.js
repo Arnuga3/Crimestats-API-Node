@@ -17,6 +17,7 @@ app.post('/force', function(req, res) {
   var obj = JSON.parse(req.body.data);
   var lat = obj.center.lat;
   var lng = obj.center.lng;
+  console.log(lat);
   var onMapIDs = obj.onMapIDs;
 
   var force = "";
