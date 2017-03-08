@@ -52,25 +52,7 @@ app.post('/force', function(req, res) {
           responses.push({id: parsed.id, lat: parsed.centre.latitude, lng: parsed.centre.longitude});
           //console.log(responses);
         });
-        var contains = function(a, b) {
-          return b.lat > a.topL.lat &&
-                  b.lat < a.botR.lat &&
-                  b.lng > a.topL.lng &&
-                  b.lng < a.botR.lng;
-        };
-
-        var rectangle = {
-          topL: corners[1],
-          botR: corners[3]
-        };
-        console.log("before");
-        var onMapViewNeighb = [];
-        for (var i=0; i<responses.length; i++) {
-          if (contains(rectangle, responses[i])) {
-            onMapViewNeighb.push(responses[i]);
-            console.log(onMapViewNeighb[i]);
-          }
-        }
+        
       }
       //console.log(corners);
       /*// If the point inside the map view triangle
