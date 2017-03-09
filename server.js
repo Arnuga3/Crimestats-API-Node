@@ -59,8 +59,8 @@ app.post('/force', function(req, res) {
           urls.push(url);
       }
       for (var i=0; i<urls.length; i++) {
+        var url = urls[i];
         requests.push(function(callback) {
-          var url = urls[i];
           console.log(url);
           request(url, function(err, response, body) {
             // JSON body
