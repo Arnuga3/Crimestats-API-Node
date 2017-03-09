@@ -55,6 +55,7 @@ app.post('/force', function(req, res) {
       for (var i=0; i<neighbourhoods.length; i++) {
         //requests.push("https://data.police.uk/api/" + force + "/" + neighbourhoods[i].id);
         var func = function(callback) {
+          console.log(neighbourhoods[i].id);
           var url = "https://data.police.uk/api/" + force + "/" + neighbourhoods[i].id;
           request(url, function(err, response, body) {
             // JSON body
@@ -68,7 +69,6 @@ app.post('/force', function(req, res) {
       }
 
 
-      console.log("inside");
         asynch.parallel(requests, function(err, resul) {
             if(err) { console.log(err); res.send(500,"Server Error"); return; }
             console.log(resul);
