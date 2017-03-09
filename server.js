@@ -51,10 +51,12 @@ app.post('/force', function(req, res) {
         console.log("----");
         console.log(a.botR.lat);
         console.log(a.botR.lng);
+        console.log("  ");
+
         return b.lat > a.topL.lat &&
                 b.lat < a.botR.lat &&
-                b.lng < a.topL.lng &&
-                b.lng > a.botR.lng;
+                b.lng > a.topL.lng &&
+                b.lng < a.botR.lng;
       };
       var rectangle = {
         topL: corners[1],
