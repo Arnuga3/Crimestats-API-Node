@@ -66,7 +66,7 @@ app.post('/force', function(req, res) {
             obj = JSON.parse(body);
             callback(false, obj);
           });
-        }));
+        })());
         //console.log(requests[i]);
       }
 
