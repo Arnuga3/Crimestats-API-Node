@@ -67,9 +67,9 @@ app.post('/force', function(req, res) {
       }
 
       exports.handler = function(req, res) {
-        asynch.parallel(requests, function(err, results) {
+        asynch.parallel(requests, function(err, resul) {
             if(err) { console.log(err); res.send(500,"Server Error"); return; }
-            console.log(results);
+            console.log(resul);
             console.log("inside");
         });
       };
