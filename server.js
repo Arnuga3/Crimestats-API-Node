@@ -43,7 +43,7 @@ app.post('/force', function(req, res) {
       var urls = [];
       var onMapViewNeighb = [];
       var contains = function(a, b) {
-        console.log(b.lat);
+        /*console.log(b.lat);
         console.log(b.lng);
         console.log("----");
         console.log(a.topL.lat);
@@ -51,7 +51,7 @@ app.post('/force', function(req, res) {
         console.log("----");
         console.log(a.botR.lat);
         console.log(a.botR.lng);
-        console.log("  ");
+        console.log("  ");*/
 
         return b.lat > a.topL.lat &&
                 b.lat < a.botR.lat &&
