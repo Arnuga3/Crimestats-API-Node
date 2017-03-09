@@ -51,7 +51,7 @@ app.post('/force', function(req, res) {
         topL: corners[1],
         botR: corners[3]
       };
-
+console.log(neighbourhoods.length);
       for (var i=0; i<neighbourhoods.length; i++) {
         //requests.push("https://data.police.uk/api/" + force + "/" + neighbourhoods[i].id);
         requests.push(function(callback) {
