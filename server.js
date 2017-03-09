@@ -40,6 +40,7 @@ app.post('/force', function(req, res) {
       var neighbourhoods = JSON.parse(body);
       var requests = [];
       var responses = [];
+      var urls = [];
       var onMapViewNeighb = [];
       var contains = function(a, b) {
         return b.lat > a.topL.lat &&
@@ -52,30 +53,33 @@ app.post('/force', function(req, res) {
         botR: corners[3]
       };
 
-
-      var func = function(url, callback) {
-        //console.log(url);
-        request(url, function(err, response, body) {
-          // JSON body
-          if(err) { console.log(err); callback(true); return; }
-          obj = JSON.parse(body);
-          callback(false, obj);
-        });
-      };
-
       for (var i=0; i<neighbourhoods.length; i++) {
         //requests.push("https://data.police.uk/api/" + force + "/" + neighbourhoods[i].id);
 
         var url = "https://data.police.uk/api/" + force + "/" + neighbourhoods[i].id;
-        requests.push(func);
+        urls.push(url);
         //console.log(requests[i]);
       }
 
 
-        asynch.parallel(requests, function(err, resul) {
-            if(err) { console.log(err); res.send(500,"Server Error"); return; }
-            console.log(resul);
-        });
+      async.each(urls,
+        // 2nd param is the function that each item is passed to
+        function(url, callback){
+          // Call an asynchronous function, often a save() to DB
+          request(url, function(err, response, body) {
+            // JSON body
+            obj = JSON.parse(body);
+            console.log(obj);
+            callback();
+          });
+        },
+        // 3rd param is the function to call when everything's done
+        function(err){
+          // All tasks are done now
+          console.log("ALL DONE");
+        }
+      );
+
 
 
       /*request.get({
