@@ -66,13 +66,12 @@ app.post('/force', function(req, res) {
         //console.log(requests[i]);
       }
 
-      exports.handler = function(req, res) {
+
       console.log("inside");
         asynch.parallel(requests, function(err, resul) {
             if(err) { console.log(err); res.send(500,"Server Error"); return; }
             console.log(resul);
         });
-      };
 
 
       /*request.get({
