@@ -42,12 +42,18 @@ app.post('/force', function(req, res) {
       var responses = [];
       var urls = [];
       var onMapViewNeighb = [];
-      var contains = function(a, b) {
+      /*var contains = function(a, b) {
         return b.lat > a.topL.lat &&
                 b.lat < a.botR.lat &&
                 b.lng > a.topL.lng &&
                 b.lng < a.botR.lng;
-      };
+      };*/
+      var contains = function() {
+        return 2 > 0 &&
+                2 < 5 &&
+                1 > 0 &&
+                1 < 5;
+      }; console.log(contains());
       var rectangle = {
         topL: corners[1],
         botR: corners[3]
@@ -71,11 +77,10 @@ app.post('/force', function(req, res) {
           console.log(responses.length);
           for (var i=0; i< responses.length; i++) {
             var inside = [];
-            console.log(contains(rectangle, responses[i]));
-            if (contains(rectangle, responses[i])) {
+            /*if (contains(rectangle, responses[i])) {
               inside.push(responses[i].id);
               console.log(responses[i].id);
-            }
+            }*/
           }
         }
       );
