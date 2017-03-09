@@ -69,7 +69,7 @@ app.post('/force', function(req, res) {
       exports.handler = function(req, res) {
         async.parallel(requests, function(err, results) {
             if(err) { console.log(err); res.send(500,"Server Error"); return; }
-            res.send(results);
+            console.log(results);
         });
       };
 
@@ -87,7 +87,7 @@ app.post('/force', function(req, res) {
         responses.push({id: parsed.id, lat: parsed.centre.latitude, lng: parsed.centre.longitude});
 
       });*/
-    
+
       //console.log(corners);
       /*// If the point inside the map view triangle
 
