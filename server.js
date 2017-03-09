@@ -63,7 +63,7 @@ app.post('/force', function(req, res) {
             callback(false, obj);
           });
         });
-        //console.log(requests[i]);
+        console.log(requests[i]);
       }
 
       exports.handler = function(req, res) {
