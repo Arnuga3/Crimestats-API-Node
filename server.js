@@ -59,7 +59,7 @@ app.post('/force', function(req, res) {
           urls.push(url);
       }
       for (var i=0; i<urls.length; i++) {
-        requests.push((function(callback) {
+        requests.push(function(callback) {
           var url = urls[i];
           console.log(url);
           request(url, function(err, response, body) {
@@ -68,7 +68,7 @@ app.post('/force', function(req, res) {
             obj = JSON.parse(body);
             callback(false, obj);
           });
-        })());
+        });
         //console.log(requests[i]);
       }
 
