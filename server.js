@@ -14,14 +14,16 @@ app.post('/force', function(req, res) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.writeHead(200, {"Content-Type": "application/json"});
 
-  //console.log(JSON.parse(req.body.data));
+  // Retrieve a json sent from a browser
   var obj = JSON.parse(req.body.data);
+  // centre point latitude
   var lat = obj.center.lat;
+  // centre point longitude
   var lng = obj.center.lng;
+  // ids of neighbourhoods already displayed on the map
   var onMapIDs = obj.onMapIDs;
+  // corners of the map view
   var corners = obj.corners;
-
-  var force = "";
 
   request.get({
     headers: {'Content-Type': 'application/json'},
@@ -35,10 +37,8 @@ app.post('/force', function(req, res) {
       headers: {'Content-Type': 'application/json'},
       url: 'https://data.police.uk/api/' + force + '/neighbourhoods'
     }, function(error, response, body){
-      //console.log(body);
-      //res.end(body);
+
       var neighbourhoods = JSON.parse(body);
-      var requests = [];
       var responses = [];
       var urls = [];
       var onMapViewNeighb = [];
@@ -54,28 +54,18 @@ app.post('/force', function(req, res) {
       };
 
       for (var i=0; i<neighbourhoods.length; i++) {
-        //requests.push("https://data.police.uk/api/" + force + "/" + neighbourhoods[i].id);
-
         var url = "https://data.police.uk/api/" + force + "/" + neighbourhoods[i].id;
         urls.push(url);
-        //console.log(requests[i]);
       }
 
-
-      asynch.each(urls,
-        // 2nd param is the function that each item is passed to
-        function(url, callback){
-          // Call an asynchronous function, often a save() to DB
+      // async module to handle multiple requests and combine all the results
+      asynch.each(urls, function(url, callback) {
           request(url, function(err, response, body) {
-            // JSON body
             obj = JSON.parse(body);
             console.log(obj);
             callback();
           });
-        },
-        // 3rd param is the function to call when everything's done
-        function(err){
-          // All tasks are done now
+        }, function(err) {
           console.log("ALL DONE");
         }
       );
