@@ -63,7 +63,7 @@ app.post('/force', function(req, res) {
           request(url, function(err, response, body) {
             obj = JSON.parse(body);
             console.log(obj.centre);
-            responses.push(obj.centre);
+            responses.push({id: obj.id, centerPoint: obj.centre});
 
             callback();
           });
