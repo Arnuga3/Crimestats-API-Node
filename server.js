@@ -67,7 +67,7 @@ app.post('/force', function(req, res) {
             callback(false, obj);
           });
         };
-        requests.push(func);
+        requests[i] = func;
         //console.log(requests[i]);
       }
 
