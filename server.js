@@ -40,6 +40,7 @@ app.post('/force', function(req, res) {
       var neighbourhoods = JSON.parse(body);
       var requests = [];
       var responses = [];
+      var urls = [];
       var onMapViewNeighb = [];
       var contains = function(a, b) {
         return b.lat > a.topL.lat &&
@@ -54,11 +55,12 @@ app.post('/force', function(req, res) {
 
       for (var i=0; i<neighbourhoods.length; i++) {
         //requests.push("https://data.police.uk/api/" + force + "/" + neighbourhoods[i].id);
-
-        var nID = neighbourhoods[i].id;
-        console.log(nID);
-        requests.push((function(callback) {
           var url = "https://data.police.uk/api/" + force + "/" + neighbourhoods[i].id;
+          urls.push(url);
+      }
+      for (var i=0; i<urls.length; i++) {
+        requests.push((function(callback) {
+          var url = urls[i];
           console.log(url);
           request(url, function(err, response, body) {
             // JSON body
