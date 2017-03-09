@@ -1,6 +1,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var request = require('request');
+var asynch = require('async');
 var app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -52,24 +53,41 @@ app.post('/force', function(req, res) {
       };
 
       for (var i=0; i<neighbourhoods.length; i++) {
-        requests.push("https://data.police.uk/api/" + force + "/" + neighbourhoods[i].id);
+        //requests.push("https://data.police.uk/api/" + force + "/" + neighbourhoods[i].id);
+        requests.push(function(callback) {
+          var url = "https://data.police.uk/api/" + force + "/" + neighbourhoods[i].id;
+          request(url, function(err, response, body) {
+            // JSON body
+            if(err) { console.log(err); callback(true); return; }
+            obj = JSON.parse(body);
+            callback(false, obj);
+          });
+        });
         //console.log(requests[i]);
       }
-      for (var i=0; i<requests.length; i++) {
-        request.get({
-          headers: {'Content-Type': 'application/json'},
-          url: requests[i]
-        }, function(error, response, body) {
-          var parsed = JSON.parse(body);
-          var point = { lat:parsed.centre.latitude,
-                        lng: parsed.centre.longitude};
-          if (contains(rectangle, point)) {
-            onMapViewNeighb.push({id: parsed.id, lat: parsed.centre.latitude, lng: parsed.centre.longitude});
-          }
-          responses.push({id: parsed.id, lat: parsed.centre.latitude, lng: parsed.centre.longitude});
 
+      exports.handler = function(req, res) {
+        async.parallel(requests, function(err, results) {
+            if(err) { console.log(err); res.send(500,"Server Error"); return; }
+            res.send(results);
         });
-      }
+      };
+
+
+      /*request.get({
+        headers: {'Content-Type': 'application/json'},
+        url: requests[i]
+      }, function(error, response, body) {
+        var parsed = JSON.parse(body);
+        var point = { lat:parsed.centre.latitude,
+                      lng: parsed.centre.longitude};
+        if (contains(rectangle, point)) {
+          onMapViewNeighb.push({id: parsed.id, lat: parsed.centre.latitude, lng: parsed.centre.longitude});
+        }
+        responses.push({id: parsed.id, lat: parsed.centre.latitude, lng: parsed.centre.longitude});
+
+      });*/
+    }
       //console.log(corners);
       /*// If the point inside the map view triangle
 
