@@ -87,7 +87,7 @@ app.post('/force', function(req, res) {
         responses.push({id: parsed.id, lat: parsed.centre.latitude, lng: parsed.centre.longitude});
 
       });*/
-    }
+    
       //console.log(corners);
       /*// If the point inside the map view triangle
 
