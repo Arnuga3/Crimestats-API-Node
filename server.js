@@ -79,15 +79,24 @@ app.post('/force', function(req, res) {
         }, function(err) {
 
           console.log(responses.length);
-          for (var i=0; i< responses.length; i++) {
+
             var inside = [];
-            console.log(contains(rectangle, responses[i]));
-            /*if (contains(rectangle, responses[i])) {
-              inside.push(responses[i].id);
-              console.log(responses[i].id);
-            }*/
+            /**/
+            asynch.each(responses, function(el, callback) {
+                if (contains(rectangle, responses[i])) {
+                  inside.push(responses[i].id);
+                  console.log(inside[i]);
+                }
+              }, function(err) {
+
+                  console.log(inside.length);
+
+                }
+              }
+            );
+
+
           }
-        }
       );
 
 
