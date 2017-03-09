@@ -83,6 +83,7 @@ app.post('/force', function(req, res) {
             var inside = [];
             /**/
             asynch.each(responses, function(el, callback) {
+                console.log(contains(rectangle, el));
                 if (contains(rectangle, el)) {
                   inside.push(el.id);
                 }
