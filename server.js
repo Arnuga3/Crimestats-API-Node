@@ -55,9 +55,9 @@ app.post('/force', function(req, res) {
       for (var i=0; i<neighbourhoods.length; i++) {
         //requests.push("https://data.police.uk/api/" + force + "/" + neighbourhoods[i].id);
 
-          console.log(neighbourhoods[i].id);
-        var func = function(callback) {
-          var url = "https://data.police.uk/api/" + force + "/" + neighbourhoods[i].id;
+        var nID = neighbourhoods[i].id;
+        var func = function(nID, callback) {
+          var url = "https://data.police.uk/api/" + force + "/" + nID;
           request(url, function(err, response, body) {
             // JSON body
             if(err) { console.log(err); callback(true); return; }
