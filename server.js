@@ -62,7 +62,9 @@ app.post('/force', function(req, res) {
       asynch.each(urls, function(url, callback) {
           request(url, function(err, response, body) {
             obj = JSON.parse(body);
-            console.log(obj);
+            console.log(obj.centre);
+            responses.push(obj.centre);
+
             callback();
           });
         }, function(err) {
