@@ -70,6 +70,7 @@ app.post('/force', function(req, res) {
         async.parallel(requests, function(err, results) {
             if(err) { console.log(err); res.send(500,"Server Error"); return; }
             console.log(results);
+            console.log("inside");
         });
       };
 
