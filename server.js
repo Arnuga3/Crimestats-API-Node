@@ -51,23 +51,14 @@ app.post('/force', function(req, res) {
         topL: corners[1],
         botR: corners[3]
       };
-console.log(neighbourhoods.length);
+
       for (var i=0; i<neighbourhoods.length; i++) {
         //requests.push("https://data.police.uk/api/" + force + "/" + neighbourhoods[i].id);
-        requests.push(function(callback) {
-          var url = "https://data.police.uk/api/" + force + "/" + neighbourhoods[i].id;
-          request(url, function(err, response, body) {
-            // JSON body
-            if(err) { console.log(err); callback(true); return; }
-            obj = JSON.parse(body);
-            callback(false, obj);
-          });
-        });
-        //console.log(requests[i]);
+        requests.push("fsdf");
+        console.log(requests[i]);
       }
 
 
-      console.log("inside");
         asynch.parallel(requests, function(err, resul) {
             if(err) { console.log(err); res.send(500,"Server Error"); return; }
             console.log(resul);
