@@ -62,7 +62,7 @@ app.post('/force', function(req, res) {
       }
 
 
-      async.each(urls,
+      asynch.each(urls,
         // 2nd param is the function that each item is passed to
         function(url, callback){
           // Call an asynchronous function, often a save() to DB
