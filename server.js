@@ -79,6 +79,7 @@ app.post('/force', function(req, res) {
           console.log(responses.length);
           for (var i=0; i< responses.length; i++) {
             var inside = [];
+            console.log(contains(rectangle, responses[0]));
             /*if (contains(rectangle, responses[i])) {
               inside.push(responses[i].id);
               console.log(responses[i].id);
