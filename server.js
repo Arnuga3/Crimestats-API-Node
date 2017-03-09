@@ -40,7 +40,6 @@ app.post('/force', function(req, res) {
       var neighbourhoods = JSON.parse(body);
       var requests = [];
       var responses = [];
-      var urls = [];
       var onMapViewNeighb = [];
       var contains = function(a, b) {
         return b.lat > a.topL.lat &&
@@ -53,22 +52,24 @@ app.post('/force', function(req, res) {
         botR: corners[3]
       };
 
+
+      var func = function(url, callback) {
+        var url = url;
+        console.log(url);
+        request(url, function(err, response, body) {
+          // JSON body
+          if(err) { console.log(err); callback(true); return; }
+          obj = JSON.parse(body);
+          callback(false, obj);
+        });
+      };
+
       for (var i=0; i<neighbourhoods.length; i++) {
         //requests.push("https://data.police.uk/api/" + force + "/" + neighbourhoods[i].id);
-          var url = "https://data.police.uk/api/" + force + "/" + neighbourhoods[i].id;
-          urls.push(url);
-      }
-      for (var i=0; i<urls.length; i++) {
-        var url = urls[i];
-        requests.push(function(callback) {
-          console.log(url);
-          request(url, function(err, response, body) {
-            // JSON body
-            if(err) { console.log(err); callback(true); return; }
-            obj = JSON.parse(body);
-            callback(false, obj);
-          });
-        });
+
+        var url = "https://data.police.uk/api/" + force + "/" + neighbourhoods[i].id;
+        console.log(url);
+        requests.push(func(url,callback));
         //console.log(requests[i]);
       }
 
