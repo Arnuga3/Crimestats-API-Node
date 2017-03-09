@@ -66,7 +66,7 @@ app.post('/force', function(req, res) {
         console.log(requests[i]);
       }
 
-      request.handler = function(req, res) {
+      asynch.handler = function(req, res) {
         asynch.parallel(requests, function(err, resul) {
             if(err) { console.log(err); res.send(500,"Server Error"); return; }
             console.log(resul);
