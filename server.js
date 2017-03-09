@@ -62,14 +62,18 @@ app.post('/force', function(req, res) {
       asynch.each(urls, function(url, callback) {
           request(url, function(err, response, body) {
             obj = JSON.parse(body);
-            responses.push({id: obj.id, centerPoint: obj.centre});
+            responses.push({id: obj.id, lat: obj.centre.latitude, lng: obj.centre.longitude});
 
             callback();
           });
         }, function(err) {
           for (var i=0; i< responses.length; i++) {
-
-            console.log(responses[i]);
+            console.log(responses.length);
+            var inside = [];
+            if (contains(rectangle, responses[i])) {
+              inside.push(responses[i].id);
+              console.log(responses[i].id);
+            }
           }
         }
       );
