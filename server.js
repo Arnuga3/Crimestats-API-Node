@@ -54,7 +54,6 @@ app.post('/force', function(req, res) {
 
 
       var func = function(url, callback) {
-        var url = url;
         console.log(url);
         request(url, function(err, response, body) {
           // JSON body
