@@ -42,18 +42,20 @@ app.post('/force', function(req, res) {
       var responses = [];
       var urls = [];
       var onMapViewNeighb = [];
-      /*var contains = function(a, b) {
+      var contains = function(a, b) {
+        console.log(b.lat);
+        console.log(b.lng);
+        console.log("----");
+        console.log(a.topL.lat);
+        console.log(a.topL.lng);
+        console.log("----");
+        console.log(a.botR.lat);
+        console.log(a.botR.lng);
         return b.lat > a.topL.lat &&
                 b.lat < a.botR.lat &&
                 b.lng > a.topL.lng &&
                 b.lng < a.botR.lng;
-      };*/
-      var contains = function() {
-        return 2 > 0 &&
-                2 < 5 &&
-                1 > 0 &&
-                1 < 5;
-      }; console.log(contains());
+      };
       var rectangle = {
         topL: corners[1],
         botR: corners[3]
