@@ -61,8 +61,7 @@ app.post('/force', function(req, res) {
           request(url, function(err, response, body) {
             // JSON body
             if(err) { console.log(err); callback(true); return; }
-            obj = JSON.parse(body);
-            callback(false, obj);
+            callback(false, body);
           });
         };
         requests.push(func);
