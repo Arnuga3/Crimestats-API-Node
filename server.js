@@ -260,19 +260,17 @@ app.post('/crime-cat-data', function(req,res) {
           responses.push(body);
 
           for(var i=0;i<categories.length; i++) {
-            catCounted.push({cat: [categories[i]], num: 0});
+            //catCounted.push({cat: [categories[i]], num: 0});
             crimes[categories[i]] = [];
           }
-          console.log(crimes);
 
           var crimeData = JSON.parse(responses[1]);
           //console.log(crimeData);
           // Counting crimes, loop through the crimes
           for(var i=0;i<crimeData.length; i++) {
             // loop through the categories
-            for (var j=0; j<catCounted.length; j++) {
-              if (crimeData[i].category == catCounted[j].cat) {
-                catCounted[j].num += 1;
+            for (var j=0; j<categories.length; j++) {
+              if (crimeData[i].category == categories[j].url) {
                 crimes[crimeData[i].category].push({
                   id: crimeData[i].id,
                   latitude: crimeData[i].location.latitude,
@@ -281,8 +279,9 @@ app.post('/crime-cat-data', function(req,res) {
               }
             }
             //console.log("crimes");
-            //console.log(crimes);
+            console.log(crimes);
           }
+          /*
           // Sorting by number, high to low
           catCounted.sort(function(a, b){
               return b.num-a.num;
@@ -293,7 +292,7 @@ app.post('/crime-cat-data', function(req,res) {
           for(var i=0;i<catCounted.length; i++) {
             console.log("category: " + catCounted[i].cat + " | num: "
               + catCounted[i].num);
-          }
+          }*/
           // Get back to user!!!
           res.end(JSON.stringify(catCounted));
         });
