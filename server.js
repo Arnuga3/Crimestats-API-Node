@@ -87,7 +87,7 @@ app.post('/force', function(req, res) {
                 }
               }, function(err) {
 
-                  console.log(inside.length);
+                  //console.log(inside.length);
 
                 }
 
