@@ -69,9 +69,9 @@ app.post('/force', function(req, res) {
 
       // async module to handle multiple requests and combine all the results
       asynch.each(urls, function(url, callback) {
-          request(url, function(err, response, body) {
-            console.log(body);
-            obj = JSON.parse(body);
+          request(url, function(err, response, bodyg) {
+            console.log(bodyg);
+            obj = JSON.parse(bodyg);
             responses.push({id: obj.id, lat: obj.centre.latitude, lng: obj.centre.longitude});
 
             callback();
