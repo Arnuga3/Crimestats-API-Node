@@ -263,6 +263,7 @@ app.post('/crime-cat-data', function(req,res) {
             catCounted.push({cat: [categories[i]], num: 0});
             crimes[categories[i]] = [];
           }
+          console.log(crimes);
 
           var crimeData = JSON.parse(responses[1]);
           //console.log(crimeData);
@@ -279,8 +280,8 @@ app.post('/crime-cat-data', function(req,res) {
                 });
               }
             }
-            console.log("crimes");
-            console.log(crimes);
+            //console.log("crimes");
+            //console.log(crimes);
           }
           // Sorting by number, high to low
           catCounted.sort(function(a, b){
