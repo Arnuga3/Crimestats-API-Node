@@ -97,7 +97,7 @@ app.post('/force', function(req, res) {
 
                 }
 
-            );*/
+            );
 
 
           }
