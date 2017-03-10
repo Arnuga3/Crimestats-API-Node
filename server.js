@@ -66,9 +66,10 @@ app.post('/force', function(req, res) {
         //console.log(url);
         urls.push(url);
       }
+      console.log(urls.length);
 
       // async module to handle multiple requests and combine all the results
-      asynch.each(urls, function(url, callback) {
+      /*asynch.each(urls, function(url, callback) {
           request(url, function(err, response, body) {
             //console.log(body);
             obj = JSON.parse(body);
@@ -100,7 +101,7 @@ app.post('/force', function(req, res) {
 
 
           }
-      );
+      );*/
 
 
 
