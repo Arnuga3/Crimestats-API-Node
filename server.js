@@ -238,6 +238,7 @@ app.post('/crime-cat-data', function(req,res) {
   var responses = [];
   var categories = [];
   var catCounted = [];
+  var crimes = {};
   var index = 0;
 
     request.get({
@@ -260,16 +261,21 @@ app.post('/crime-cat-data', function(req,res) {
 
           for(var i=0;i<categories.length; i++) {
             catCounted.push({cat: [categories[i]], num: 0});
+            crimes[categories[i]] = [];
           }
+          console.log(crimes);
 
           var crimeData = JSON.parse(responses[1]);
           //console.log(crimeData);
-          // Counting crimes
+          // Counting crimes, loop through the crimes
           for(var i=0;i<crimeData.length; i++) {
+            // loop through the categories
             for (var j=0; j<catCounted.length; j++) {
               if (crimeData[i].category == catCounted[j].cat)
               catCounted[j].num += 1;
             }
+
+
           }
           // Sorting by number, high to low
           catCounted.sort(function(a, b){
