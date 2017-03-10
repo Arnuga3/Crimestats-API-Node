@@ -43,15 +43,13 @@ app.post('/force', function(req, res) {
       var urls = [];
       var onMapViewNeighb = [];
       var contains = function(a, b) {
-        /*console.log(b.lat);
-        console.log(b.lng);
-        console.log("----");
-        console.log(a.topL.lat);
-        console.log(a.topL.lng);
-        console.log("----");
-        console.log(a.botR.lat);
-        console.log(a.botR.lng);
-        console.log("  ");*/
+        console.log("---->");
+        console.log(b.lat + " > " + a.topL.lat);
+        console.log(b.lat + " < " + a.botR.lat);
+        console.log(b.lng + " > " + a.topL.lng);
+        console.log(b.lng + " < " + a.botR.lng);
+        console.log("<----");
+        console.log(" ");
 
         return b.lat > a.topL.lat &&
                 b.lat < a.botR.lat &&
@@ -83,7 +81,7 @@ app.post('/force', function(req, res) {
             var inside = [];
             /**/
             asynch.each(responses, function(el, callback) {
-                console.log(contains(rectangle, el));
+                //console.log(el));
                 if (contains(rectangle, el)) {
                   inside.push(el.id);
                 }
