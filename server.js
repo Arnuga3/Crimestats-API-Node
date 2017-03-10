@@ -63,6 +63,7 @@ app.post('/force', function(req, res) {
 
       for (var i=0; i<neighbourhoods.length; i++) {
         var url = "https://data.police.uk/api/" + force + "/" + neighbourhoods[i].id;
+        console.log(neighbourhoods[i].id);
         urls.push(url);
       }
 
