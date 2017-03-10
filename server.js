@@ -63,7 +63,7 @@ app.post('/force', function(req, res) {
 
       for (var i=0; i<neighbourhoods.length; i++) {
         var url = "https://data.police.uk/api/" + force + "/" + neighbourhoods[i].id;
-        console.log(neighbourhoods[i].id);
+        console.log(url);
         urls.push(url);
       }
 
@@ -71,7 +71,7 @@ app.post('/force', function(req, res) {
       asynch.each(urls, function(url, callback) {
           request(url, function(err, response, body) {
             console.log(body);
-            obj = body;
+            obj = JSON.parse(body);
             responses.push({id: obj.id, lat: obj.centre.latitude, lng: obj.centre.longitude});
 
             callback();
