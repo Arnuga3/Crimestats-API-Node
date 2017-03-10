@@ -71,7 +71,7 @@ app.post('/force', function(req, res) {
       asynch.each(urls, function(url, callback) {
           request(url, function(err, response, body) {
             console.log(body);
-            obj = JSON.parse(body);
+            obj = JSON.parse(body, null, 3);
             responses.push({id: obj.id, lat: obj.centre.latitude, lng: obj.centre.longitude});
 
             callback();
