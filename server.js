@@ -270,7 +270,7 @@ app.post('/crime-cat-data', function(req,res) {
           for(var i=0;i<crimeData.length; i++) {
             // loop through the categories
             for (var j=0; j<categories.length; j++) {
-              if (crimeData[i].category == categories[j].url) {
+              if (crimeData[i].category == categories[j]) {
                 crimes[crimeData[i].category].push({
                   id: crimeData[i].id,
                   latitude: crimeData[i].location.latitude,
@@ -279,8 +279,9 @@ app.post('/crime-cat-data', function(req,res) {
               }
             }
             //console.log("crimes");
-            console.log(crimes);
           }
+
+          console.log(crimes);
           /*
           // Sorting by number, high to low
           catCounted.sort(function(a, b){
