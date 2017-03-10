@@ -263,6 +263,7 @@ app.post('/crime-cat-data', function(req,res) {
             catCounted.push({cat: [categories[i]], num: 0});
             crimes[categories[i]] = [];
           }
+          console.log("crimes");
           console.log(crimes);
 
           var crimeData = JSON.parse(responses[1]);
