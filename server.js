@@ -260,8 +260,8 @@ app.post('/crime-cat-data', function(req,res) {
       request.get({
         headers: {'Content-Type': 'application/json'},
         url: requests[1]
-      }, function(error, response, body){
-
+      }, function(error, response, body) {
+        if(response.statusCode == 200) {
         // Create properties (category names) and add empty arrays to them inside the crimes object
         for(var i=0;i<categories.length; i++) {
           crimes[categories[i]] = [];
@@ -295,7 +295,11 @@ app.post('/crime-cat-data', function(req,res) {
 
         // Get back to user!!!
         res.end(JSON.stringify(crimes));
-      });
+
+      } else if (response.statusCode == 503) {
+        console.log("FAIL");
+      }
+    });
   });
 });
 
