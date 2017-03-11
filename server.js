@@ -167,7 +167,7 @@ app.post('/neighbourhood', function(req,res) {
                     return;
                 }
                 console.log(data)
-                body[0].msg = data;
+                body.msg = data;
         res.end(body);
             });
   });
