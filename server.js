@@ -2,6 +2,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var request = require('request');
 var asynch = require('async');
+var figlet = require('figlet');
 var app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -284,6 +285,14 @@ app.post('/crime-cat-data', function(req,res) {
         }
 
         console.log(crimes);
+        figlet('Hello World!!', function(err, data) {
+            if (err) {
+                console.log('Something went wrong...');
+                console.dir(err);
+                return;
+            }
+            console.log(data)
+        });
 
         // Get back to user!!!
         res.end(JSON.stringify(crimes));
