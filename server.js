@@ -165,9 +165,9 @@ app.post('/neighbourhood', function(req,res) {
                     console.dir(err);
                     return;
                 }
-                console.log(data)
+                JSON.parse(body);
                 body.msg = data;
-
+                body = JSON.stringify(body);
                   console.log(body);
         res.end(body);
             });
