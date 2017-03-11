@@ -284,18 +284,6 @@ app.post('/crime-cat-data', function(req,res) {
           }
         }
 
-        console.log(crimes);
-        figlet('Hello World!!', function(err, data) {
-            if (err) {
-                console.log('Something went wrong...');
-                console.dir(err);
-                return;
-            }
-            console.log(data)
-
-            crimes["meessage"] = data;
-        });
-
         // Get back to user!!!
         res.end(JSON.stringify(crimes));
       });
