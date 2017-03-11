@@ -227,77 +227,68 @@ app.post('/crime-cat-data', function(req,res) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.writeHead(200, {"Content-Type": "text/plain"});
 
+  // POST variables
   var poly = req.body.poly;
   var period = req.body.period;
-  //console.log(poly);
-  //console.log("Requested: Crime categories");
 
-  // GET request using 'request'
+  // GET request using 'request module'
+  // Two requests stored in array
   var requests = ['https://data.police.uk/api/crime-categories',
                   'https://data.police.uk/api/crimes-street/all-crime?poly=' + poly];
+  // Array to store responses
   var responses = [];
+  // Array to store crime category names
   var categories = [];
-  var catCounted = [];
+  // Object to store crimes grouped by category
   var crimes = {};
-  var index = 0;
 
-    request.get({
-      headers: {'Content-Type': 'application/json'},
-      url: requests[0]
-    }, function(error, response, body){
-      responses.push(body);
 
-        var data = JSON.parse(responses[0]);
-        //console.log(data);
-        for(var i=0; i<data.length; i++) {
-          categories.push(data[i].url);
+  // First request using 'requset' module - get categories
+  request.get({
+    headers: {'Content-Type': 'application/json'},
+    url: requests[0]
+  }, function(error, response, body){
+      // Crime categories
+      var data = JSON.parse(body);
+      // Save names of categories
+      for(var i=0; i<data.length; i++) {
+        categories.push(data[i].url);
+      }
+
+      // Second request - get crimes within a poly
+      request.get({
+        headers: {'Content-Type': 'application/json'},
+        url: requests[1]
+      }, function(error, response, body){
+
+        // Create properties (category names) and add empty arrays to them inside the crimes object
+        for(var i=0;i<categories.length; i++) {
+          crimes[categories[i]] = [];
         }
 
-        request.get({
-          headers: {'Content-Type': 'application/json'},
-          url: requests[1]
-        }, function(error, response, body){
-          responses.push(body);
-
-          for(var i=0;i<categories.length; i++) {
-            //catCounted.push({cat: [categories[i]], num: 0});
-            crimes[categories[i]] = [];
-          }
-
-          var crimeData = JSON.parse(responses[1]);
-          //console.log(crimeData);
-          // Counting crimes, loop through the crimes
-          for(var i=0;i<crimeData.length; i++) {
-            // loop through the categories
-            for (var j=0; j<categories.length; j++) {
-              if (crimeData[i].category == categories[j]) {
-                crimes[crimeData[i].category].push({
-                  id: crimeData[i].id,
-                  latitude: crimeData[i].location.latitude,
-                  longitude: crimeData[i].location.longitude
-                });
-              }
+        var crimeData = JSON.parse(body);
+        // Loop through the crimes
+        for(var i=0;i<crimeData.length; i++) {
+          // Loop through the categories
+          for (var j=0; j<categories.length; j++) {
+            // Fill the empty arrays with crimes (skipping unnecessary data)
+            if (crimeData[i].category == categories[j]) {
+              // Save only id, latitude, longitude
+              crimes[crimeData[i].category].push({
+                id: crimeData[i].id,
+                latitude: crimeData[i].location.latitude,
+                longitude: crimeData[i].location.longitude
+              });
             }
-            //console.log("crimes");
           }
+        }
 
-          console.log(crimes);
-          /*
-          // Sorting by number, high to low
-          catCounted.sort(function(a, b){
-              return b.num-a.num;
-          });
+        console.log(crimes);
 
-          catCounted.pop();
-
-          for(var i=0;i<catCounted.length; i++) {
-            console.log("category: " + catCounted[i].cat + " | num: "
-              + catCounted[i].num);
-          }*/
-          // Get back to user!!!
-          res.end(JSON.stringify(catCounted));
-        });
-    });
+        // Get back to user!!!
+        res.end(JSON.stringify(crimes));
+      });
+  });
 });
 
 // A list of crime categories and numbers
@@ -370,10 +361,7 @@ app.get('/crime-cat-data', function(req,res) {
 */
 
 app.get('/', function(req,res) {
-  res.send("<h1>Hello to CrimeStats!</h1> <br> <h3>To get <b>crime categories</b> and a <b>number of each</b> in the specific area:</h3> <br> " +
-            "GET <br> <i>http://crimestatsapi.azurewebsites.net/crime-cat-data?poly=</i>" + " (format of poly: lat,lng:lat,lng:.. whrere the first and the last points are the same)" +
-            "<br> POST <br> url: <i>http://crimestatsapi.azurewebsites.net/crime-cat-data</i>" +
-            "<br> data: {poly: poly (format of poly: lat,lng:lat,lng:.. whrere the first and the last points are the same)}");
+  res.send("<h1>Hello to CrimeStats!</h1><br>We are still under development process.");
 });
 
 var port = process.env.PORT || 1337;
