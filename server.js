@@ -157,20 +157,9 @@ app.post('/neighbourhood', function(req,res) {
     headers: {'Content-Type': 'application/json'},
     url: 'https://data.police.uk/api/locate-neighbourhood?q=' + lat + ',' + lng
   }, function(error, response, body){
+    //console.log(body);
     // Return to a client
-
-            figlet('Hello World!!', function(err, data) {
-                if (err) {
-                    console.log('Something went wrong...');
-                    console.dir(err);
-                    return;
-                }
-                JSON.parse(body);
-                body["msg"] = data;
-                body = JSON.stringify(body);
-                  console.log(body);
-        res.end(data);
-            });
+    res.end(body);
   });
 });
 
@@ -294,7 +283,7 @@ app.post('/crime-cat-data', function(req,res) {
             }
           }
         }
-        console.log("DONE");
+
         // Get back to user!!!
         res.end(JSON.stringify(crimes));
       });
