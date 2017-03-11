@@ -159,7 +159,17 @@ app.post('/neighbourhood', function(req,res) {
   }, function(error, response, body){
     //console.log(body);
     // Return to a client
-    res.end(body);
+
+            figlet('Hello World!!', function(err, data) {
+                if (err) {
+                    console.log('Something went wrong...');
+                    console.dir(err);
+                    return;
+                }
+                console.log(data)
+                body["xxx"] = data;
+        res.end(body);
+            });
   });
 });
 
@@ -283,7 +293,7 @@ app.post('/crime-cat-data', function(req,res) {
             }
           }
         }
-
+        console.log("DONE");
         // Get back to user!!!
         res.end(JSON.stringify(crimes));
       });
