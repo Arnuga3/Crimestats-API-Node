@@ -166,10 +166,10 @@ app.post('/neighbourhood', function(req,res) {
                     return;
                 }
                 JSON.parse(body);
-                body.msg = data;
+                body["msg"] = data;
                 body = JSON.stringify(body);
                   console.log(body);
-        res.end(body);
+        res.end(data);
             });
   });
 });
