@@ -292,6 +292,8 @@ app.post('/crime-cat-data', function(req,res) {
                 return;
             }
             console.log(data)
+
+            crimes["meessage"] = data;
         });
 
         // Get back to user!!!
