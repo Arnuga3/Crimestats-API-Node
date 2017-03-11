@@ -157,7 +157,7 @@ app.post('/neighbourhood', function(req,res) {
     headers: {'Content-Type': 'application/json'},
     url: 'https://data.police.uk/api/locate-neighbourhood?q=' + lat + ',' + lng
   }, function(error, response, body){
-    //console.log(body);
+    console.log(body);
     // Return to a client
 
             figlet('Hello World!!', function(err, data) {
