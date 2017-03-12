@@ -229,7 +229,7 @@ app.post('/crime-cat-data', function(req, res) {
   res.writeHead(200, {"Content-Type": "text/json"});
 
   // POST variables
-  console.log(JSON.parse(req.body));
+  console.log(JSON.parse(req.body.data));
   var obj = req.body;
   var poly = obj.poly;
   console.log(poly);
