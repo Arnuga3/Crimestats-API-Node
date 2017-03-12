@@ -336,7 +336,7 @@ app.post('/crime-cat-data', function(req,res) {
         }
 
         var pols = [convertToPoly(splitPoly(convertFromPoly(poly)))];
-
+        console.log(pols[0]);
         asynch.each(poly, function(el, callback) {
           request.get({
             headers: {'Content-Type': 'application/json'},
