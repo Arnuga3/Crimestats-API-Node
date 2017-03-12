@@ -194,7 +194,7 @@ app.post('/crime-cat-data', function(req, res) {
           var poly1 = [];
           var poly2 = [];
 
-          c("NEW POLY");
+          c("BIG POLY SLICED");
           var middleLng = bigPoly[0].lng + (bigPoly[1].lng - bigPoly[0].lng)/2;
           poly1.push(bigPoly[0]);
           poly1.push({lat: bigPoly[1].lat, lng: middleLng});
@@ -206,11 +206,11 @@ app.post('/crime-cat-data', function(req, res) {
           poly2.push(bigPoly[2]);
           poly2.push({lat: bigPoly[3].lat, lng: middleLng});
 
-          return poly2;
+          return [poly1, poly2];
         }
 
-
-        var pols = [convertToPoly(splitPoly(poly))];
+        var slicedPoly = splitPoly(poly);
+        var pols = [convertToPoly(slicedPoly[0]), convertToPoly(slicedPoly[1])];
         var splitResponses = [];
         //console.log("POLY: " + pols[0]);
         async.each(pols, function(el, callback) {
@@ -232,7 +232,7 @@ app.post('/crime-cat-data', function(req, res) {
               for(var i=0;i<categories.length; i++) {
                 crimes[categories[i]] = [];
               }
-              var crimeData = splitResponses[0];
+              var crimeData = splitResponses[0] + splitResponses[1];
               // Loop through the crimes
               for(var i=0;i<crimeData.length; i++) {
                 // Loop through the categories
