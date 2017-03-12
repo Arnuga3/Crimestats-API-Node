@@ -5,6 +5,8 @@ var asynch = require('async');
 var figlet = require('figlet');
 var app = express();
 
+
+//>>> FUNCTIONS
 function c(x) {
   figlet(x, function(err, data) {
       if (err) {
@@ -19,137 +21,6 @@ function c(x) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//>>>>>>>> THE MAIN METHOD
-app.post('/force', function(req, res) {
-
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.writeHead(200, {"Content-Type": "application/json"});
-
-  // Retrieve a json sent from a browser
-  var obj = JSON.parse(req.body.data);
-  // centre point latitude
-  var lat = obj.center.lat;
-  // centre point longitude
-  var lng = obj.center.lng;
-  // ids of neighbourhoods already displayed on the map
-  var onMapIDs = obj.onMapIDs;
-  // corners of the map view
-  var corners = obj.corners;
-
-  request.get({
-    headers: {'Content-Type': 'application/json'},
-    url: 'https://data.police.uk/api/locate-neighbourhood?q=' + lat + ',' + lng
-  }, function(error, response, body){
-    var data = JSON.parse(body);
-    var force = data.force;
-    //console.log(force);
-
-    request.get({
-      headers: {'Content-Type': 'application/json'},
-      url: 'https://data.police.uk/api/' + force + '/neighbourhoods'
-    }, function(error, response, body){
-
-      var neighbourhoods = JSON.parse(body);
-      var responses = [];
-      var urls = [];
-      var onMapViewNeighb = [];
-      var contains = function(a, b) {
-        console.log("---->");
-        console.log(b.lat + " > " + a.topL.lat);
-        console.log(b.lat + " < " + a.botR.lat);
-        console.log(b.lng + " > " + a.topL.lng);
-        console.log(b.lng + " < " + a.botR.lng);
-        console.log("<----");
-        console.log(" ");
-
-        return b.lat > a.topL.lat &&
-                b.lat < a.botR.lat &&
-                b.lng > a.topL.lng &&
-                b.lng < a.botR.lng;
-      };
-      var rectangle = {
-        topL: corners[1],
-        botR: corners[3]
-      };
-
-      for (var i=0; i<neighbourhoods.length; i++) {
-        var url = "https://data.police.uk/api/" + force + "/" + neighbourhoods[i].id;
-        //console.log(url);
-        urls.push(url);
-      }
-      console.log(urls.length);
-
-      // async module to handle multiple requests and combine all the results
-      /*asynch.each(urls, function(url, callback) {
-          request(url, function(err, response, body) {
-            //console.log(body);
-            obj = JSON.parse(body);
-            responses.push({id: obj.id, lat: obj.centre.latitude, lng: obj.centre.longitude});
-
-            callback();
-          });
-        }, function(err) {
-          for (var i=0; i<responses.length; i++) {
-
-            console.log(responses[i].id);
-          }
-          console.log(responses.length);
-
-            //var inside = [];
-            /**/
-            /*asynch.each(responses, function(el, callback) {
-                console.log(contains(rectangle, el));
-                if (contains(rectangle, el)) {
-                  inside.push(el.id);
-                }
-              }, function(err) {
-
-                  //console.log(inside.length);
-
-                }
-
-            );
-
-
-          }
-      );*/
-
-
-
-      /*request.get({
-        headers: {'Content-Type': 'application/json'},
-        url: requests[i]
-      }, function(error, response, body) {
-        var parsed = JSON.parse(body);
-        var point = { lat:parsed.centre.latitude,
-                      lng: parsed.centre.longitude};
-        if (contains(rectangle, point)) {
-          onMapViewNeighb.push({id: parsed.id, lat: parsed.centre.latitude, lng: parsed.centre.longitude});
-        }
-        responses.push({id: parsed.id, lat: parsed.centre.latitude, lng: parsed.centre.longitude});
-
-      });*/
-
-      //console.log(corners);
-      /*// If the point inside the map view triangle
-
-
-
-      console.log("before");
-      for (var i=0; i<responses.length; i++) {
-        if (contains(rectangle, responses[i])) {
-          onMapViewNeighb.push(responses[i]);
-          console.log(onMapViewNeighb[i]);
-        }
-      }*/
-
-    });
-  });
-
-});
-
-//>>>>>>>> END
 
 
 // lat, lng (from a client) to request force, neighbourhood form API
@@ -321,23 +192,12 @@ app.post('/crime-cat-data', function(req, res) {
           var poly1 = [];
           var poly2 = [];
 
-          console.log("POINTS: ");
-
-          console.log(points[1].lat);
-          console.log(points[0].lat);
-          console.log(">>>");
-          console.log();
-
-          var middleLat = points[1].lng - points[0].lng;
-          poly1.push(points[0].lat + "," + points[0].lng);
-          console.log(poly1[0]);
-          poly1.push(middleLat + "," + points[0].lng);
-          console.log(poly1[1]);
-          poly1.push(middleLat + "," + points[3].lng);
-          console.log(poly1[2]);
-          poly1.push(points[3].lat + "," + points[3].lng);
-          console.log(poly1[3]);
-          return poly1;
+          c("Middle Lat");
+          console.log(poly[0].lat);
+          console.log(poly[1].lat);
+          var middleLat = poly[0].lat - poly[1].lat;
+          console.log(middleLat);
+          //return poly1;
         }
 
         var convertFromPoly = function(poly) {
