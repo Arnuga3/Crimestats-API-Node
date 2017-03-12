@@ -253,7 +253,7 @@ app.post('/crime-cat-data', function(req, res) {
                 }
 
               }
-              c.("CRIMES FROM 2");
+              c("CRIMES FROM 2");
             // console.log(crimes);
             // Get back to user!!!
             res.end(JSON.stringify(crimes));
