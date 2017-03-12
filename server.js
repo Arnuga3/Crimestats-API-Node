@@ -221,7 +221,6 @@ app.post('/crime-cat-data', function(req, res) {
             if(response.statusCode == 200) {
                 var crimeData = JSON.parse(body);
                 splitResponses.push(crimeData);
-                console.log(splitResponses.length);
                 callback();
             } else {
               console.log(response.statusCode);
@@ -235,7 +234,7 @@ app.post('/crime-cat-data', function(req, res) {
               }
 
               for (var i=0; i<splitResponses.length; i++) {
-
+                console.log("loop " + i+1);
                 var crimeData = splitResponses[i];
                 // Loop through the crimes
                 for(var i=0;i<crimeData.length; i++) {
@@ -252,7 +251,7 @@ app.post('/crime-cat-data', function(req, res) {
                     }
                   }
                 }
-
+                console.log(crimes.length);
               }
               c("CRIMES FROM 2");
             // console.log(crimes);
