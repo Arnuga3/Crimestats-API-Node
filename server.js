@@ -221,7 +221,7 @@ app.post('/crime-cat-data', function(req, res) {
             if(response.statusCode == 200) {
                 var crimeData = JSON.parse(body);
                 splitResponses.push(crimeData);
-                cosole.log(splitResponses.length);
+                console.log(splitResponses.length);
                 callback();
             } else {
               console.log(response.statusCode);
