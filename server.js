@@ -228,14 +228,13 @@ app.post('/crime-cat-data', function(req, res) {
           });
 
         }, function(err) {
+
               // Create properties (category names) and add empty arrays to them inside the crimes object
               for(var i=0;i<categories.length; i++) {
                 crimes[categories[i]] = [];
               }
-              console.log(splitResponses[0].length);
-              console.log(splitResponses[1].length);
-              for (var i=0; i<splitResponses.length; i++) {
-                console.log("loop " + (i + 1));
+
+              async.each(splitResponses, function(resp, callback) {
                 var crimeData = splitResponses[i];
                 // Loop through the crimes
                 for(var i=0;i<crimeData.length; i++) {
@@ -252,8 +251,11 @@ app.post('/crime-cat-data', function(req, res) {
                     }
                   }
                 }
-                console.log(crimes.length);
-              }
+              }, function(err) {
+                  // Get back to user!!!
+                  res.end(JSON.stringify(crimes));
+              });
+
               c("CRIMES FROM 2");
             // console.log(crimes);
             // Get back to user!!!
