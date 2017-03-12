@@ -200,8 +200,13 @@ app.post('/crime-cat-data', function(req, res) {
           poly1.push({lat: bigPoly[1].lat, lng: middleLng});
           poly1.push({lat: bigPoly[2].lat, lng: middleLng});
           poly1.push(bigPoly[3]);
-          console.log(poly1);
-          return poly1;
+
+          poly1.push({lat: bigPoly[0].lat, lng: middleLng});
+          poly1.push(bigPoly[1]);
+          poly1.push(bigPoly[2]);
+          poly1.push({lat: bigPoly[3].lat, lng: middleLng});
+
+          return poly2;
         }
 
 
