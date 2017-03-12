@@ -222,7 +222,7 @@ app.get('/neighbourhood/details', function(req,res) {
 
 
 // A list of crime categories and numbers
-app.post('/crime-cat-data', function(req,res) {
+app.post('/crime-cat-data', function(req, res) {
 
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -232,10 +232,24 @@ app.post('/crime-cat-data', function(req,res) {
   var poly = req.body.poly;
   var period = req.body.period;
 
+  var convertToPoly = function(arr) {
+    var poly = '';
+    for (var i=0; i<arr.length; i++) {
+      if (!i) {
+        poly += arr[i];
+      } else {
+        poly += ':' + arr[i];
+      }
+    }
+    poly += ':' + arr[0];
+    poly = poly.replace(/[ ()]/g, "");
+    return poly;
+  };
+
   // GET request using 'request module'
   // Two requests stored in array
   var requests = ['https://data.police.uk/api/crime-categories',
-                  'https://data.police.uk/api/crimes-street/all-crime?poly=' + poly];
+                  'https://data.police.uk/api/crimes-street/all-crime?poly=' + convertToPoly(poly)];
   // Array to store responses
   var responses = [];
   // Array to store crime category names
@@ -299,20 +313,6 @@ app.post('/crime-cat-data', function(req,res) {
       } else if (response.statusCode == 503) {
         console.log("FAIL");
         console.log("RECOVERY");
-
-        var convertToPoly = function(arr) {
-        	var poly = '';
-        	for (var i=0; i<arr.length; i++) {
-        		if (!i) {
-        			poly += arr[i];
-        		} else {
-        			poly += ':' + arr[i];
-        		}
-        	}
-        	poly += ':' + arr[0];
-        	poly = poly.replace(/[ ()]/g, "");
-        	return poly;
-        }
 
         var splitPoly = function(points) {
           var poly1 = [];
