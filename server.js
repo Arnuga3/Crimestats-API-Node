@@ -5,6 +5,26 @@ var asynch = require('async');
 var figlet = require('figlet');
 var app = express();
 
+function c(x) {
+  figlet(x, function(err, data) {
+      if (err) {
+          console.log('Something went wrong...');
+          console.dir(err);
+          return;
+      }
+      console.log(data)
+  });
+}
+
+figlet('SUCCESS', function(err, data) {
+    if (err) {
+        console.log('Something went wrong...');
+        console.dir(err);
+        return;
+    }
+    console.log(data)
+});
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -231,9 +251,8 @@ app.post('/crime-cat-data', function(req, res) {
   // POST variables
   var obj = JSON.parse(req.body.data);
   var poly = obj.poly;
-  console.log(poly);
   var period = obj.period;
-  console.log(period);
+
   var convertToPoly = function(arr) {
     var poly = '';
     for (var i=0; i<arr.length; i++) {
@@ -248,6 +267,7 @@ app.post('/crime-cat-data', function(req, res) {
     return poly;
   };
 
+  c("test");
   // GET request using 'request module'
   // Two requests stored in array
   var requests = ['https://data.police.uk/api/crime-categories',
@@ -300,14 +320,7 @@ app.post('/crime-cat-data', function(req, res) {
           }
         }
 
-        figlet('SUCCESS', function(err, data) {
-            if (err) {
-                console.log('Something went wrong...');
-                console.dir(err);
-                return;
-            }
-            console.log(data)
-        });
+        c(data);
 
         // Get back to user!!!
         res.end(JSON.stringify(crimes));
