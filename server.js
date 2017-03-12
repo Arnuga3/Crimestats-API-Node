@@ -320,7 +320,7 @@ app.post('/crime-cat-data', function(req,res) {
           var middleLat = points[0].lat - points[1].lat;
           poly1.push(points[0].lat + "," + points[0].lng);
           poly1.push(middleLat + "," + points[0].lng);
-          poly1.push(middleLat + "," + pints[3].lng);
+          poly1.push(middleLat + "," + points[3].lng);
           poly1.push(points[3].lat + "," + points[3].lng);
           return poly1;
         }
