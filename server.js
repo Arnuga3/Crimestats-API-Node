@@ -319,9 +319,13 @@ app.post('/crime-cat-data', function(req,res) {
           var poly2 = [];
           var middleLat = points[0].lat - points[1].lat;
           poly1.push(points[0].lat + "," + points[0].lng);
+          console.log(poly1[0]);
           poly1.push(middleLat + "," + points[0].lng);
+          console.log(poly1[1]);
           poly1.push(middleLat + "," + points[3].lng);
+          console.log(poly1[2]);
           poly1.push(points[3].lat + "," + points[3].lng);
+          console.log(poly1[3]);
           return poly1;
         }
 
@@ -336,7 +340,7 @@ app.post('/crime-cat-data', function(req,res) {
         }
 
         var pols = [convertToPoly(splitPoly(convertFromPoly(poly)))];
-        console.log(pols[0]);
+        console.log("POLY: " + pols[0]);
         asynch.each(poly, function(el, callback) {
           request.get({
             headers: {'Content-Type': 'application/json'},
