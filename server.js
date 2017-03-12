@@ -235,7 +235,7 @@ app.post('/crime-cat-data', function(req, res) {
               }
 
               async.each(splitResponses, function(resp, callback) {
-                var crimeData = splitResponses[i];
+                var crimeData = resp;
                 // Loop through the crimes
                 for(var i=0;i<crimeData.length; i++) {
                   // Loop through the categories
