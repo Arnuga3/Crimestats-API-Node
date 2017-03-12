@@ -266,8 +266,7 @@ app.post('/crime-cat-data', function(req, res) {
     poly = poly.replace(/[ ()]/g, "");
     return poly;
   };
-
-  c("test");
+  c(convertToPoly(poly));
   // GET request using 'request module'
   // Two requests stored in array
   var requests = ['https://data.police.uk/api/crime-categories',
