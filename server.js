@@ -338,6 +338,7 @@ app.post('/crime-cat-data', function(req,res) {
         }
 
         var convertFromPoly = function(poly) {
+          console.log(poly);
           var polyArr = poly.split(":");
           var points = [];
           for (var i=0; i<polyArr.length; i++) {
