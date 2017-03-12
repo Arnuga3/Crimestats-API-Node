@@ -257,12 +257,12 @@ app.post('/crime-cat-data', function(req, res) {
     var poly = '';
     for (var i=0; i<arr.length; i++) {
       if (!i) {
-        poly += arr[i];
+        poly += arr[i].lat + "," + arr[i].lng;
       } else {
-        poly += ':' + arr[i];
+        poly += ':' + arr[i].lat + "," + arr[i].lng;
       }
     }
-    poly += ':' + arr[0];
+    poly += ':' + arr[0].lat + "," + arr[0].lng;
     poly = poly.replace(/[ ()]/g, "");
     return poly;
   };
