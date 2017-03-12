@@ -229,6 +229,7 @@ app.post('/crime-cat-data', function(req, res) {
   res.writeHead(200, {"Content-Type": "text/plain"});
 
   // POST variables
+  console.log(req.body);
   var obj = req.body;
   var poly = obj.poly;
   console.log(poly);
