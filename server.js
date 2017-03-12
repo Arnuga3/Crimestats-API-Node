@@ -216,36 +216,38 @@ app.post('/crime-cat-data', function(req, res) {
             if(response.statusCode == 200) {
                 var crimeData = JSON.parse(body);
                 splitResponses.push(crimeData);
+
+                callback();
             } else {
               console.log(response.statusCode);
             }
           });
-          callback();
-          }, function(err) {
-                // Create properties (category names) and add empty arrays to them inside the crimes object
-                for(var i=0;i<categories.length; i++) {
-                  crimes[categories[i]] = [];
-                }
 
-                var crimeData = splitResponses[0];
-                // Loop through the crimes
-                for(var i=0;i<crimeData.length; i++) {
-                  // Loop through the categories
-                  for (var j=0; j<categories.length; j++) {
-                    // Fill the empty arrays with crimes (skipping unnecessary data)
-                    if (crimeData[i].category == categories[j]) {
-                      // Save only id, latitude, longitude
-                      crimes[crimeData[i].category].push({
-                        id: crimeData[i].id,
-                        latitude: crimeData[i].location.latitude,
-                        longitude: crimeData[i].location.longitude
-                      });
-                    }
+        }, function(err) {
+              // Create properties (category names) and add empty arrays to them inside the crimes object
+              for(var i=0;i<categories.length; i++) {
+                crimes[categories[i]] = [];
+              }
+
+              var crimeData = splitResponses[0];
+              // Loop through the crimes
+              for(var i=0;i<crimeData.length; i++) {
+                // Loop through the categories
+                for (var j=0; j<categories.length; j++) {
+                  // Fill the empty arrays with crimes (skipping unnecessary data)
+                  if (crimeData[i].category == categories[j]) {
+                    // Save only id, latitude, longitude
+                    crimes[crimeData[i].category].push({
+                      id: crimeData[i].id,
+                      latitude: crimeData[i].location.latitude,
+                      longitude: crimeData[i].location.longitude
+                    });
                   }
                 }
-              // Get back to user!!!
-              res.end(JSON.stringify(crimes));
-          }
+              }
+            // Get back to user!!!
+            res.end(JSON.stringify(crimes));
+        }
         );
 
       }
