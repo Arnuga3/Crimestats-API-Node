@@ -332,9 +332,9 @@ app.post('/crime-cat-data', function(req,res) {
         var convertFromPoly = function(poly) {
           var polyArr = poly.split(":");
           var points = [];
-          for (var coor in polyArr) {
-            console.log(coor);
-            var latLng = coor.split(",");
+          for (var i=0; i<polyArr.length; i++) {
+            console.log(polyArr[i]);
+            var latLng = polyArr[i].split(",");
             points.push({lat: latLng[0], lng: latLng[1]});
           }
           return points;
