@@ -219,6 +219,7 @@ app.post('/crime-cat-data', function(req, res) {
             }
 
             var crimeData = JSON.parse(body);
+            console.log(crimeData);
             // Loop through the crimes
             for(var i=0;i<crimeData.length; i++) {
               // Loop through the categories
