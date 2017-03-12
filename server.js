@@ -317,6 +317,14 @@ app.post('/crime-cat-data', function(req,res) {
         var splitPoly = function(points) {
           var poly1 = [];
           var poly2 = [];
+
+          console.log("POINTS: ");
+
+          console.log(points[1].lat);
+          console.log(points[0].lat);
+          console.log(">>>");
+          console.log();
+
           var middleLat = points[1].lat - points[0].lat;
           poly1.push(points[0].lat + "," + points[0].lng);
           console.log(poly1[0]);
