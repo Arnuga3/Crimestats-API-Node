@@ -192,28 +192,19 @@ app.post('/crime-cat-data', function(req, res) {
           var poly1 = [];
           var poly2 = [];
 
-          c("Middle Lat");
-          console.log(poly[0].lat);
-          console.log(poly[1].lat);
-          var middleLat = poly[0].lat - poly[1].lat;
-          console.log(middleLat);
-          //return poly1;
+          c("NEW POLY");
+          var middleLng = poly[0].lng - poly[1].lng;
+          poly1.push(points[0]);
+          poly1.push({lat: points[1].lat, lng: middleLng});
+          poly1.push({lat: points[2], lng: middleLng});
+          poly1.push(points[3]);
+
+          return poly1;
         }
 
-        var convertFromPoly = function(poly) {
-          console.log(poly);
-          var polyArr = poly.split(":");
-          var points = [];
-          for (var i=0; i<polyArr.length-1; i++) {
-            //console.log(polyArr[i]);
-            var latLng = polyArr[i].split(",");
-            points.push({lat: latLng[0], lng: latLng[1]});
-          }
-          return points;
-        }
 
-        var pols = [convertToPoly(splitPoly(convertFromPoly(poly)))];
-        console.log("POLY: " + pols[0]);
+        var pols = [convertToPoly(poly1)];
+        //console.log("POLY: " + pols[0]);
         asynch.each(pols, function(el, callback) {
           request.get({
             headers: {'Content-Type': 'application/json'},
