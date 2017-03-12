@@ -1,7 +1,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var request = require('request');
-var asynch = require('async');
+var async = require('async');
 var figlet = require('figlet');
 var app = express();
 
@@ -208,7 +208,7 @@ app.post('/crime-cat-data', function(req, res) {
         var pols = [convertToPoly(splitPoly(poly))];
         var splitResponses = [];
         //console.log("POLY: " + pols[0]);
-        asynch.each(pols, function(el, callback) {
+        async.each(pols, function(el, callback) {
           request.get({
             headers: {'Content-Type': 'application/json'},
             url: 'https://data.police.uk/api/crimes-street/all-crime?poly=' + el
