@@ -188,7 +188,7 @@ app.post('/crime-cat-data', function(req, res) {
         console.log("FAIL");
         console.log("RECOVERY");
 
-        var splitPoly = function(points) {
+        var splitPoly = function(bigPoly) {
           var poly1 = [];
           var poly2 = [];
 
@@ -203,7 +203,7 @@ app.post('/crime-cat-data', function(req, res) {
         }
 
 
-        var pols = [convertToPoly(poly1)];
+        var pols = [convertToPoly(splitPoly(poly))];
         //console.log("POLY: " + pols[0]);
         asynch.each(pols, function(el, callback) {
           request.get({
