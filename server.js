@@ -193,11 +193,11 @@ app.post('/crime-cat-data', function(req, res) {
           var poly2 = [];
 
           c("NEW POLY");
-          var middleLng = poly[0].lng - poly[1].lng;
-          poly1.push(points[0]);
-          poly1.push({lat: points[1].lat, lng: middleLng});
-          poly1.push({lat: points[2], lng: middleLng});
-          poly1.push(points[3]);
+          var middleLng = bigPoly[0].lng - bigPoly[1].lng;
+          poly1.push(bigPoly[0]);
+          poly1.push({lat: bigPoly[1].lat, lng: middleLng});
+          poly1.push({lat: bigPoly[2], lng: middleLng});
+          poly1.push(bigPoly[3]);
 
           return poly1;
         }
