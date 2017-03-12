@@ -232,9 +232,9 @@ app.post('/crime-cat-data', function(req, res) {
               for(var i=0;i<categories.length; i++) {
                 crimes[categories[i]] = [];
               }
-
+              console.log(splitResponses.length);
               for (var i=0; i<splitResponses.length; i++) {
-                console.log("loop " + i+1);
+                console.log("loop " + (i + 1));
                 var crimeData = splitResponses[i];
                 // Loop through the crimes
                 for(var i=0;i<crimeData.length; i++) {
