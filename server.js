@@ -232,7 +232,8 @@ app.post('/crime-cat-data', function(req, res) {
               for(var i=0;i<categories.length; i++) {
                 crimes[categories[i]] = [];
               }
-              console.log(splitResponses.length);
+              console.log(splitResponses[0].length);
+              console.log(splitResponses[1].length);
               for (var i=0; i<splitResponses.length; i++) {
                 console.log("loop " + (i + 1));
                 var crimeData = splitResponses[i];
