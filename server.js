@@ -232,23 +232,29 @@ app.post('/crime-cat-data', function(req, res) {
               for(var i=0;i<categories.length; i++) {
                 crimes[categories[i]] = [];
               }
-              var crimeData = splitResponses[0] + splitResponses[1];
-              // Loop through the crimes
-              for(var i=0;i<crimeData.length; i++) {
-                // Loop through the categories
-                for (var j=0; j<categories.length; j++) {
-                  // Fill the empty arrays with crimes (skipping unnecessary data)
-                  if (crimeData[i].category == categories[j]) {
-                    // Save only id, latitude, longitude
-                    crimes[crimeData[i].category].push({
-                      id: crimeData[i].id,
-                      latitude: crimeData[i].location.latitude,
-                      longitude: crimeData[i].location.longitude
-                    });
+
+              for (var i=0; i<splitResponses.length; i++) {
+
+                var crimeData = splitResponses[i];
+                // Loop through the crimes
+                for(var i=0;i<crimeData.length; i++) {
+                  // Loop through the categories
+                  for (var j=0; j<categories.length; j++) {
+                    // Fill the empty arrays with crimes (skipping unnecessary data)
+                    if (crimeData[i].category == categories[j]) {
+                      // Save only id, latitude, longitude
+                      crimes[crimeData[i].category].push({
+                        id: crimeData[i].id,
+                        latitude: crimeData[i].location.latitude,
+                        longitude: crimeData[i].location.longitude
+                      });
+                    }
                   }
                 }
+
               }
-              console.log(crimes);
+              c.("CRIMES FROM 2");
+            // console.log(crimes);
             // Get back to user!!!
             res.end(JSON.stringify(crimes));
         });
