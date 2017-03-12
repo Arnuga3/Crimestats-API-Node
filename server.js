@@ -251,6 +251,7 @@ app.post('/crime-cat-data', function(req, res) {
                     }
                   }
                 }
+                callback();
               }, function(err) {
                   c("CRIMES FROM 2");
                   // Get back to user!!!
