@@ -252,14 +252,10 @@ app.post('/crime-cat-data', function(req, res) {
                   }
                 }
               }, function(err) {
+                  c("CRIMES FROM 2");
                   // Get back to user!!!
                   res.end(JSON.stringify(crimes));
               });
-
-              c("CRIMES FROM 2");
-            // console.log(crimes);
-            // Get back to user!!!
-            res.end(JSON.stringify(crimes));
         });
 
       }
