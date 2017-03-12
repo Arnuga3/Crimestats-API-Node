@@ -351,10 +351,10 @@ app.post('/crime-cat-data', function(req,res) {
 
         var pols = [convertToPoly(splitPoly(convertFromPoly(poly)))];
         console.log("POLY: " + pols[0]);
-        asynch.each(poly, function(el, callback) {
+        asynch.each(pols, function(el, callback) {
           request.get({
             headers: {'Content-Type': 'application/json'},
-            url: 'https://data.police.uk/api/crimes-street/all-crime?poly=' + pols[0]
+            url: 'https://data.police.uk/api/crimes-street/all-crime?poly=' + el
           }, function(error, response, body) {
             if(response.statusCode == 200) {
             // Create properties (category names) and add empty arrays to them inside the crimes object
