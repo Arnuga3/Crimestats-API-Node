@@ -7,6 +7,7 @@ var app = express();
 
 
 //>>> FUNCTIONS
+// Fancy text output
 function c(x) {
   figlet(x, function(err, data) {
       if (err) {
@@ -16,6 +17,20 @@ function c(x) {
       }
       console.log(data)
   });
+}
+// Converting array of coordinates to Police API format
+function convertToPoly(arr) {
+  var poly = '';
+  for (var i=0; i<arr.length; i++) {
+    if (!i) {
+      poly += arr[i].lat + "," + arr[i].lng;
+    } else {
+      poly += ':' + arr[i].lat + "," + arr[i].lng;
+    }
+  }
+  poly += ':' + arr[0].lat + "," + arr[0].lng;
+  poly = poly.replace(/[ ()]/g, "");
+  return poly;
 }
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -115,19 +130,6 @@ app.post('/crime-cat-data', function(req, res) {
   var poly = obj.poly;
   var period = obj.period;
 
-  var convertToPoly = function(arr) {
-    var poly = '';
-    for (var i=0; i<arr.length; i++) {
-      if (!i) {
-        poly += arr[i].lat + "," + arr[i].lng;
-      } else {
-        poly += ':' + arr[i].lat + "," + arr[i].lng;
-      }
-    }
-    poly += ':' + arr[0].lat + "," + arr[0].lng;
-    poly = poly.replace(/[ ()]/g, "");
-    return poly;
-  };
   console.log(convertToPoly(poly));
   // GET request using 'request module'
   // Two requests stored in array
