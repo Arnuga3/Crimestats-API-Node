@@ -333,7 +333,7 @@ app.post('/crime-cat-data', function(req,res) {
           var polyArr = poly.split(":");
           var points = [];
           for (var i=0; i<polyArr.length; i++) {
-            console.log(polyArr[i]);
+            //console.log(polyArr[i]);
             var latLng = polyArr[i].split(",");
             points.push({lat: latLng[0], lng: latLng[1]});
           }
