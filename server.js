@@ -16,15 +16,6 @@ function c(x) {
   });
 }
 
-figlet('SUCCESS', function(err, data) {
-    if (err) {
-        console.log('Something went wrong...');
-        console.dir(err);
-        return;
-    }
-    console.log(data)
-});
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -318,8 +309,6 @@ app.post('/crime-cat-data', function(req, res) {
             }
           }
         }
-
-        c(data);
 
         // Get back to user!!!
         res.end(JSON.stringify(crimes));
