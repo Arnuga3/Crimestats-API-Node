@@ -234,6 +234,8 @@ app.post('/crime-cat-data', function(req, res) {
                 }
               }
             }
+          } else {
+            console.log(response.statusCode);
           }
 
           });
