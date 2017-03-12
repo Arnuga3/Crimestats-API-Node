@@ -216,7 +216,6 @@ app.post('/crime-cat-data', function(req, res) {
             if(response.statusCode == 200) {
                 var crimeData = JSON.parse(body);
                 splitResponses.push(crimeData);
-                console.log(crimeData);
                 callback();
             } else {
               console.log(response.statusCode);
@@ -228,7 +227,7 @@ app.post('/crime-cat-data', function(req, res) {
               for(var i=0;i<categories.length; i++) {
                 crimes[categories[i]] = [];
               }
-
+              console.log(splitResponses[0]);
               var crimeData = splitResponses[0];
               // Loop through the crimes
               for(var i=0;i<crimeData.length; i++) {
