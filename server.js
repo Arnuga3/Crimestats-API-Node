@@ -34,7 +34,7 @@ function convertToPoly(arr) {
 }
 
 // Accepts 4 points of a map view and slices the view on half
-function splitOn2(bigPoly) {
+function splitOn2(bigPoly, categories) {
   var poly1 = [];
   var poly2 = [];
 
@@ -269,7 +269,7 @@ app.post('/crime-cat-data', function(req, res) {
           console.log("FAIL - 503");
           console.log("RECOVERY...");
 
-          res.end(JSON.stringify(splitOn2(poly)));
+          res.end(JSON.stringify(splitOn2(poly,categories)));
         }
     });
   });
