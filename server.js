@@ -231,7 +231,7 @@ app.post('/crime-cat-data', function(req, res) {
                   callback();
               } else if (response.statusCode == 503) {
                 isFailed = true;
-                console.log(response.statusCode);
+                callback();
               }
             });
 
