@@ -33,6 +33,28 @@ function convertToPoly(arr) {
   return poly;
 }
 
+// Accepts 4 points of a map view and slices the view on half
+function splitOn2(bigPoly) {
+  var poly1 = [];
+  var poly2 = [];
+
+  var middleLng = bigPoly[0].lng + (bigPoly[1].lng - bigPoly[0].lng)/2;
+
+  // First poly
+  poly1.push(bigPoly[0]);
+  poly1.push({lat: bigPoly[1].lat, lng: middleLng});
+  poly1.push({lat: bigPoly[2].lat, lng: middleLng});
+  poly1.push(bigPoly[3]);
+
+  // Second poly
+  poly2.push({lat: bigPoly[0].lat, lng: middleLng});
+  poly2.push(bigPoly[1]);
+  poly2.push(bigPoly[2]);
+  poly2.push({lat: bigPoly[3].lat, lng: middleLng});
+
+  return [poly1, poly2];
+}
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -130,7 +152,6 @@ app.post('/crime-cat-data', function(req, res) {
   var poly = obj.poly;
   var period = obj.period;
 
-  console.log(convertToPoly(poly));
   // GET request using 'request module'
   // Two requests stored in array
   var requests = ['https://data.police.uk/api/crime-categories',
@@ -160,80 +181,68 @@ app.post('/crime-cat-data', function(req, res) {
         headers: {'Content-Type': 'application/json'},
         url: requests[1]
       }, function(error, response, body) {
-        if(response.statusCode == 200) {
-        // Create properties (category names) and add empty arrays to them inside the crimes object
-        for(var i=0;i<categories.length; i++) {
-          crimes[categories[i]] = [];
-        }
 
-        var crimeData = JSON.parse(body);
-        // Loop through the crimes
-        for(var i=0;i<crimeData.length; i++) {
-          // Loop through the categories
-          for (var j=0; j<categories.length; j++) {
-            // Fill the empty arrays with crimes (skipping unnecessary data)
-            if (crimeData[i].category == categories[j]) {
-              // Save only id, latitude, longitude
-              crimes[crimeData[i].category].push({
-                id: crimeData[i].id,
-                latitude: crimeData[i].location.latitude,
-                longitude: crimeData[i].location.longitude
-              });
+        // Total amount of crimes < 10000
+        if(response.statusCode == 200) {
+          // Create properties (category names) and add empty arrays to them inside the crimes object
+          for(var i=0;i<categories.length; i++) {
+            crimes[categories[i]] = [];
+          }
+
+          var crimeData = JSON.parse(body);
+          // Loop through the crimes
+          for(var i=0;i<crimeData.length; i++) {
+            // Loop through the categories
+            for (var j=0; j<categories.length; j++) {
+              // Fill the empty arrays with crimes (skipping unnecessary data)
+              if (crimeData[i].category == categories[j]) {
+                // Save only id, latitude, longitude
+                crimes[crimeData[i].category].push({
+                  id: crimeData[i].id,
+                  latitude: crimeData[i].location.latitude,
+                  longitude: crimeData[i].location.longitude
+                });
+              }
             }
           }
-        }
 
-        // Get back to user!!!
-        res.end(JSON.stringify(crimes));
+          // Get back to user!!!
+          res.end(JSON.stringify(crimes));
 
-      } else if (response.statusCode == 503) {
-        console.log("FAIL");
-        console.log("RECOVERY");
+        // Total amount of crimes > 10000
+        } else if (response.statusCode == 503) {
+          console.log("FAIL - 503");
+          console.log("RECOVERY...");
 
-        var splitPoly = function(bigPoly) {
-          var poly1 = [];
-          var poly2 = [];
+          var slicedPoly = splitOn2(poly);
+          var pols = [convertToPoly(slicedPoly[0]), convertToPoly(slicedPoly[1])];
+          var splitResponses = [];
 
-          c("BIG POLY SLICED");
-          var middleLng = bigPoly[0].lng + (bigPoly[1].lng - bigPoly[0].lng)/2;
-          poly1.push(bigPoly[0]);
-          poly1.push({lat: bigPoly[1].lat, lng: middleLng});
-          poly1.push({lat: bigPoly[2].lat, lng: middleLng});
-          poly1.push(bigPoly[3]);
-
-          poly2.push({lat: bigPoly[0].lat, lng: middleLng});
-          poly2.push(bigPoly[1]);
-          poly2.push(bigPoly[2]);
-          poly2.push({lat: bigPoly[3].lat, lng: middleLng});
-
-          return [poly1, poly2];
-        }
-
-        var slicedPoly = splitPoly(poly);
-        var pols = [convertToPoly(slicedPoly[0]), convertToPoly(slicedPoly[1])];
-        var splitResponses = [];
-        //console.log("POLY: " + pols[0]);
-        async.each(pols, function(el, callback) {
-          request.get({
-            headers: {'Content-Type': 'application/json'},
-            url: 'https://data.police.uk/api/crimes-street/all-crime?poly=' + el
-          }, function(error, response, body) {
-            if(response.statusCode == 200) {
-                var crimeData = JSON.parse(body);
-                splitResponses.push(crimeData);
-                callback();
-            } else {
-              console.log(response.statusCode);
-            }
-          });
-
-        }, function(err) {
-
-              // Create properties (category names) and add empty arrays to them inside the crimes object
-              for(var i=0;i<categories.length; i++) {
-                crimes[categories[i]] = [];
+          var isFailed = false;
+          //console.log("POLY: " + pols[0]);
+          async.each(pols, function(el, callback) {
+            request.get({
+              headers: {'Content-Type': 'application/json'},
+              url: 'https://data.police.uk/api/crimes-street/all-crime?poly=' + el
+            }, function(error, response, body) {
+              if(response.statusCode == 200) {
+                  var crimeData = JSON.parse(body);
+                  splitResponses.push(crimeData);
+                  callback();
+              } else if (response.statusCode == 503) {
+                isFailed = true;
+                console.log(response.statusCode);
               }
+            });
 
+          }, function(err) {
+
+            // Create properties (category names) and add empty arrays to them inside the crimes object
+            for(var i=0;i<categories.length; i++) {
+              crimes[categories[i]] = [];
+            }
+
+            if (!isFailed) {
               async.each(splitResponses, function(resp, callback) {
                 var crimeData = resp;
                 // Loop through the crimes
@@ -257,9 +266,12 @@ app.post('/crime-cat-data', function(req, res) {
                   // Get back to user!!!
                   res.end(JSON.stringify(crimes));
               });
-        });
+            } else {
+              c("splitOn2 FAILED");
+            }
+          });
 
-      }
+        }
     });
   });
 });
