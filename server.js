@@ -52,7 +52,62 @@ function splitOn2(bigPoly) {
   poly2.push(bigPoly[2]);
   poly2.push({lat: bigPoly[3].lat, lng: middleLng});
 
-  return [poly1, poly2];
+  var pols = [convertToPoly(poly1), convertToPoly(poly2)];
+  var splitResponses = [];
+
+  var isFailed = false;
+  //console.log("POLY: " + pols[0]);
+  async.each(pols, function(el, callback) {
+    request.get({
+      headers: {'Content-Type': 'application/json'},
+      url: 'https://data.police.uk/api/crimes-street/all-crime?poly=' + el
+    }, function(error, response, body) {
+      if(response.statusCode == 200) {
+          var crimeData = JSON.parse(body);
+          splitResponses.push(crimeData);
+          callback();
+      } else if (response.statusCode == 503) {
+        isFailed = true;
+        callback();
+      }
+    });
+
+  }, function(err) {
+
+    // Create properties (category names) and add empty arrays to them inside the crimes object
+    for(var i=0;i<categories.length; i++) {
+      crimes[categories[i]] = [];
+    }
+
+    if (!isFailed) {
+      async.each(splitResponses, function(resp, callback) {
+        var crimeData = resp;
+        // Loop through the crimes
+        for(var i=0;i<crimeData.length; i++) {
+          // Loop through the categories
+          for (var j=0; j<categories.length; j++) {
+            // Fill the empty arrays with crimes (skipping unnecessary data)
+            if (crimeData[i].category == categories[j]) {
+              // Save only id, latitude, longitude
+              crimes[crimeData[i].category].push({
+                id: crimeData[i].id,
+                latitude: crimeData[i].location.latitude,
+                longitude: crimeData[i].location.longitude
+              });
+            }
+          }
+        }
+        callback();
+      }, function(err) {
+          c("CRIMES FROM 2");
+          // Get back to user!!!
+          return JSON.stringify(crimes);
+      });
+    } else {
+      c("splitOn2 FAILED");
+      splitOn4();
+    }
+  });
 }
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -214,63 +269,8 @@ app.post('/crime-cat-data', function(req, res) {
           console.log("FAIL - 503");
           console.log("RECOVERY...");
 
-          var slicedPoly = splitOn2(poly);
-          var pols = [convertToPoly(slicedPoly[0]), convertToPoly(slicedPoly[1])];
-          var splitResponses = [];
-
-          var isFailed = false;
-          //console.log("POLY: " + pols[0]);
-          async.each(pols, function(el, callback) {
-            request.get({
-              headers: {'Content-Type': 'application/json'},
-              url: 'https://data.police.uk/api/crimes-street/all-crime?poly=' + el
-            }, function(error, response, body) {
-              if(response.statusCode == 200) {
-                  var crimeData = JSON.parse(body);
-                  splitResponses.push(crimeData);
-                  callback();
-              } else if (response.statusCode == 503) {
-                isFailed = true;
-                callback();
-              }
-            });
-
-          }, function(err) {
-
-            // Create properties (category names) and add empty arrays to them inside the crimes object
-            for(var i=0;i<categories.length; i++) {
-              crimes[categories[i]] = [];
-            }
-
-            if (!isFailed) {
-              async.each(splitResponses, function(resp, callback) {
-                var crimeData = resp;
-                // Loop through the crimes
-                for(var i=0;i<crimeData.length; i++) {
-                  // Loop through the categories
-                  for (var j=0; j<categories.length; j++) {
-                    // Fill the empty arrays with crimes (skipping unnecessary data)
-                    if (crimeData[i].category == categories[j]) {
-                      // Save only id, latitude, longitude
-                      crimes[crimeData[i].category].push({
-                        id: crimeData[i].id,
-                        latitude: crimeData[i].location.latitude,
-                        longitude: crimeData[i].location.longitude
-                      });
-                    }
-                  }
-                }
-                callback();
-              }, function(err) {
-                  c("CRIMES FROM 2");
-                  // Get back to user!!!
-                  res.end(JSON.stringify(crimes));
-              });
-            } else {
-              c("splitOn2 FAILED");
-            }
-          });
-
+          var crimes = splitOn2(poly);
+          if (crimes) res.end(JSON.stringify(crimes));
         }
     });
   });
