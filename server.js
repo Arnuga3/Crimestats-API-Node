@@ -269,8 +269,8 @@ app.post('/crime-cat-data', function(req, res) {
           console.log("FAIL - 503");
           console.log("RECOVERY...");
 
-          var crimes = splitOn2(poly);
-          if (crimes) res.end(JSON.stringify(crimes));
+          splitOn2(poly);
+          
         }
     });
   });
