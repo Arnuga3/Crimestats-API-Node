@@ -70,9 +70,8 @@ function splitOn2(bigPoly, categories) {
           callback();
       } else if (response.statusCode == 503) {
         isFailed = true;
-        callback();
+        c("1/2 FAILED");
       }
-    });
 
   }, function(err) {
 
