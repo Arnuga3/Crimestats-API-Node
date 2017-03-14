@@ -239,62 +239,7 @@ app.post('/crime-cat-data', function(req, res) {
                   splitResponses.push(crimeData);
                   callback();
               } else if (response.statusCode == 503) {
-                console.log("FAIL ON2 - 503");
-                console.log("CUT ON 4...");
 
-                var slicedPoly = splitOn4(poly);
-                var pols = [convertToPoly(slicedPoly[0]), convertToPoly(slicedPoly[1]),
-                            convertToPoly(slicedPoly[2]), convertToPoly(slicedPoly[3])];
-                var splitResponses = [];
-                console.log(pols);
-                //console.log("POLY: " + pols[0]);
-                /*async.each(pols, function(el, callback) {
-                  request.get({
-                    headers: {'Content-Type': 'application/json'},
-                    url: 'https://data.police.uk/api/crimes-street/all-crime?poly=' + el
-                  }, function(error, response, body) {
-                    if(response.statusCode == 200) {
-                        var crimeData = JSON.parse(body);
-                        splitResponses.push(crimeData);
-                        callback();
-                    } else if (response.statusCode == 503) {
-
-                      console.log(response.statusCode);
-                    }
-                  });
-
-                }, function(err) {
-
-                      // Create properties (category names) and add empty arrays to them inside the crimes object
-                      for(var i=0;i<categories.length; i++) {
-                        crimes[categories[i]] = [];
-                      }
-
-                      async.each(splitResponses, function(resp, callback) {
-                        var crimeData = resp;
-                        // Loop through the crimes
-                        for(var i=0;i<crimeData.length; i++) {
-                          // Loop through the categories
-                          for (var j=0; j<categories.length; j++) {
-                            // Fill the empty arrays with crimes (skipping unnecessary data)
-                            if (crimeData[i].category == categories[j]) {
-                              // Save only id, latitude, longitude
-                              crimes[crimeData[i].category].push({
-                                id: crimeData[i].id,
-                                latitude: crimeData[i].location.latitude,
-                                longitude: crimeData[i].location.longitude
-                              });
-                            }
-                          }
-                        }
-                        callback();
-                      }, function(err) {
-                          c("CRIMES FROM 4");
-                          // Get back to user!!!
-                          res.end(JSON.stringify(crimes));
-                      });
-                });*/
-              }
             });
 
           }, function(err) {
