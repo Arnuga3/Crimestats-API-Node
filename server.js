@@ -37,6 +37,8 @@ function convertToPoly(arr) {
 function splitOn2(bigPoly, categories) {
   var poly1 = [];
   var poly2 = [];
+  // Object to store crimes grouped by category
+  var crimes = {};
 
   var middleLng = bigPoly[0].lng + (bigPoly[1].lng - bigPoly[0].lng)/2;
 
