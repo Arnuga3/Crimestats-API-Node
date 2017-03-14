@@ -104,7 +104,7 @@ function splitOn2(bigPoly, categories) {
           c("CRIMES FROM 2");
           // Get back to user!!!
 
-          app.res.end(JSON.stringify(crimes));
+          return crimes;
       });
     } else {
       c("splitOn2 FAILED");
