@@ -102,6 +102,7 @@ function splitOn2(bigPoly, categories) {
         callback();
       }, function(err) {
           c("CRIMES FROM 2");
+          console.log(crimes);
           // Get back to user!!!
           return crimes;
       });
