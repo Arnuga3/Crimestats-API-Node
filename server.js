@@ -272,8 +272,8 @@ app.post('/crime-cat-data', function(req, res) {
           console.log("RECOVERY...");
           var r = [];
 
-          async.each([splitOn2(poly,categories)], function(resp, callback) {
-            r.push(resp);
+          async.parallel(function(callback) {
+            r.push(splitOn2(poly,categories));
             callback();
           }, function(err) {
             console.log(r[0]);
