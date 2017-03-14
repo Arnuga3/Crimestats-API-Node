@@ -271,7 +271,8 @@ app.post('/crime-cat-data', function(req, res) {
         } else if (response.statusCode == 503) {
           console.log("FAIL - 503");
           console.log("RECOVERY...");
-          splitOn2(poly,categories);
+          var result = splitOn2(poly,categories);
+          console.log(result);
         }
     });
   });
