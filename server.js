@@ -175,7 +175,6 @@ app.post('/crime-cat-data', function(req, res) {
   // Object to store crimes grouped by category
   var crimes = {};
 
-
   // First request using 'requset' module - get categories
   request.get({
     headers: {'Content-Type': 'application/json'},
@@ -247,8 +246,9 @@ app.post('/crime-cat-data', function(req, res) {
                 var pols = [convertToPoly(slicedPoly[0]), convertToPoly(slicedPoly[1]),
                             convertToPoly(slicedPoly[2]), convertToPoly(slicedPoly[3])];
                 var splitResponses = [];
+                console.log(pols);
                 //console.log("POLY: " + pols[0]);
-                async.each(pols, function(el, callback) {
+                /*async.each(pols, function(el, callback) {
                   request.get({
                     headers: {'Content-Type': 'application/json'},
                     url: 'https://data.police.uk/api/crimes-street/all-crime?poly=' + el
@@ -293,7 +293,7 @@ app.post('/crime-cat-data', function(req, res) {
                           // Get back to user!!!
                           res.end(JSON.stringify(crimes));
                       });
-                });
+                });*/
               }
             });
 
