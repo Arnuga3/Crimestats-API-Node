@@ -102,7 +102,6 @@ function splitOn2(bigPoly, categories) {
         callback();
       }, function(err) {
           c("CRIMES FROM 2");
-          console.log(crimes);
           // Get back to user!!!
           return crimes;
       });
@@ -271,8 +270,9 @@ app.post('/crime-cat-data', function(req, res) {
         } else if (response.statusCode == 503) {
           console.log("FAIL - 503");
           console.log("RECOVERY...");
-
-          res.end(JSON.stringify(splitOn2(poly,categories)));
+          var x = splitOn2(poly,categories);
+          console.log(x);
+          res.end(JSON.stringify(x));
         }
     });
   });
