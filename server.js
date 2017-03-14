@@ -103,7 +103,7 @@ function splitOn2(bigPoly, categories) {
       }, function(err) {
           c("CRIMES FROM 2");
           // Get back to user!!!
-          return JSON.stringify(crimes);
+          return crimes;
       });
     } else {
       c("splitOn2 FAILED");
