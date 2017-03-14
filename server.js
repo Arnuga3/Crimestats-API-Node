@@ -272,6 +272,9 @@ app.post('/crime-cat-data', function(req, res) {
           console.log("FAIL - 503");
           console.log("RECOVERY...");
           var result = splitOn2(poly,categories);
+          while (!result) {
+            if (result) res.end(JSON.stringify(result));
+          }
           console.log(result);
         }
     });
