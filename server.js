@@ -170,6 +170,7 @@ app.post('/crime-cat-data', function(req, res) {
                   'https://data.police.uk/api/crimes-street/all-crime?poly=' + convertToPoly(poly)];
   // Array to store responses
   var responses = [];
+  var splitResponses = [];
   // Array to store crime category names
   var categories = [];
   // Object to store crimes grouped by category
@@ -224,10 +225,11 @@ app.post('/crime-cat-data', function(req, res) {
         } else if (response.statusCode == 503) {
           console.log("FAIL - 503");
           console.log("CUT ON 2...");
+          splitResponses = [];
 
           var slicedPoly = splitOn2(poly);
           var pols = [convertToPoly(slicedPoly[0]), convertToPoly(slicedPoly[1])];
-          var splitResponses = [];
+
           //console.log("POLY: " + pols[0]);
           async.each(pols, function(el, callback) {
             request.get({
@@ -241,6 +243,7 @@ app.post('/crime-cat-data', function(req, res) {
               } else if (response.statusCode == 503) {
                 console.log("FAIL ON2 - 503");
                 console.log("CUT ON 4...");
+                splitResponses = [];
 
                 var slicedPoly = splitOn4(poly);
                 var pols = [convertToPoly(slicedPoly[0]), convertToPoly(slicedPoly[1]),
