@@ -109,7 +109,6 @@ function splitOn2(bigPoly, categories) {
       c("splitOn2 FAILED");
       splitOn4();
     }
-  }
   });
 }
 
