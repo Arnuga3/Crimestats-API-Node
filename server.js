@@ -55,6 +55,18 @@ function splitOn2(bigPoly) {
   return [poly1, poly2];
 }
 
+// Accepts 4 points of a map view and slices the view on half
+function splitOn4(bigPoly) {
+  var set1 = [];
+  var set2 = [];
+
+  var bigPolyHalves = splitOn2(bigPoly);
+  set1 = splitOn2(bigPolyHalves[0]);
+  set2 = splitOn2(bigPolyHalves[1]);
+
+  return [set1[0], set1[1], set[0], set2[1]];
+}
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -212,7 +224,7 @@ app.post('/crime-cat-data', function(req, res) {
         // Total amount of crimes > 10000
         } else if (response.statusCode == 503) {
           console.log("FAIL - 503");
-          console.log("RECOVERY...");
+          console.log("CUT ON 2...");
 
           var slicedPoly = splitOn2(poly);
           var pols = [convertToPoly(slicedPoly[0]), convertToPoly(slicedPoly[1])];
@@ -228,7 +240,60 @@ app.post('/crime-cat-data', function(req, res) {
                   splitResponses.push(crimeData);
                   callback();
               } else if (response.statusCode == 503) {
-                console.log(response.statusCode);
+                console.log("FAIL ON2 - 503");
+                console.log("CUT ON 4...");
+
+                var slicedPoly = splitOn4(poly);
+                var pols = [convertToPoly(slicedPoly[0]), convertToPoly(slicedPoly[1]),
+                            convertToPoly(slicedPoly[2]), convertToPoly(slicedPoly[3]];
+                var splitResponses = [];
+                //console.log("POLY: " + pols[0]);
+                async.each(pols, function(el, callback) {
+                  request.get({
+                    headers: {'Content-Type': 'application/json'},
+                    url: 'https://data.police.uk/api/crimes-street/all-crime?poly=' + el
+                  }, function(error, response, body) {
+                    if(response.statusCode == 200) {
+                        var crimeData = JSON.parse(body);
+                        splitResponses.push(crimeData);
+                        callback();
+                    } else if (response.statusCode == 503) {
+
+                      console.log(response.statusCode);
+                    }
+                  });
+
+                }, function(err) {
+
+                      // Create properties (category names) and add empty arrays to them inside the crimes object
+                      for(var i=0;i<categories.length; i++) {
+                        crimes[categories[i]] = [];
+                      }
+
+                      async.each(splitResponses, function(resp, callback) {
+                        var crimeData = resp;
+                        // Loop through the crimes
+                        for(var i=0;i<crimeData.length; i++) {
+                          // Loop through the categories
+                          for (var j=0; j<categories.length; j++) {
+                            // Fill the empty arrays with crimes (skipping unnecessary data)
+                            if (crimeData[i].category == categories[j]) {
+                              // Save only id, latitude, longitude
+                              crimes[crimeData[i].category].push({
+                                id: crimeData[i].id,
+                                latitude: crimeData[i].location.latitude,
+                                longitude: crimeData[i].location.longitude
+                              });
+                            }
+                          }
+                        }
+                        callback();
+                      }, function(err) {
+                          c("CRIMES FROM 4");
+                          // Get back to user!!!
+                          res.end(JSON.stringify(crimes));
+                      });
+                });
               }
             });
 
