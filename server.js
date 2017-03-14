@@ -276,7 +276,7 @@ app.post('/crime-cat-data', function(req, res) {
             r.push(resp);
             callback();
           }, function(err) {
-
+            console.log(r[0]);
             res.end(JSON.stringify(r[0]));
           });
 
