@@ -248,7 +248,6 @@ app.post('/crime-cat-data', function(req, res) {
                 var slicedPoly = splitOn4(poly);
                 var pols = [convertToPoly(slicedPoly[0]), convertToPoly(slicedPoly[1]),
                             convertToPoly(slicedPoly[2]), convertToPoly(slicedPoly[3])];
-                var splitResponses = [];
                 console.log(pols);
                 //console.log("POLY: " + pols[0]);
                 /*async.each(pols, function(el, callback) {
