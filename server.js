@@ -250,7 +250,7 @@ app.post('/crime-cat-data', function(req, res) {
                             convertToPoly(slicedPoly[2]), convertToPoly(slicedPoly[3])];
                 console.log(pols);
                 //console.log("POLY: " + pols[0]);
-                /*async.each(pols, function(el, callback) {
+                async.each(pols, function(el, callback) {
                   request.get({
                     headers: {'Content-Type': 'application/json'},
                     url: 'https://data.police.uk/api/crimes-street/all-crime?poly=' + el
@@ -295,7 +295,7 @@ app.post('/crime-cat-data', function(req, res) {
                           // Get back to user!!!
                           res.end(JSON.stringify(crimes));
                       });
-                });*/
+                });
 
               }
             });
