@@ -64,7 +64,7 @@ function splitOn4(bigPoly) {
   set1 = splitOn2(bigPolyHalves[0]);
   set2 = splitOn2(bigPolyHalves[1]);
 
-  return [set1[0], set1[1], set[0], set2[1]];
+  return [set1[0], set1[1], set2[0], set2[1]];
 }
 
 app.use(bodyParser.urlencoded({ extended: false }));
