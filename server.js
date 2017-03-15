@@ -228,8 +228,7 @@ app.post('/crime-cat-data', function(req, res) {
               }
             }
           }
-
-          // Get back to user!!!
+          c("CRIMES FROM 1");          // Get back to user!!!
           res.end(JSON.stringify(crimes));
 
         // Total amount of crimes > 10000
@@ -324,7 +323,7 @@ app.post('/crime-cat-data', function(req, res) {
                               }
                               callback();
                             }, function(err) {
-                                c("CRIMES FROM 4");
+                                c("CRIMES FROM 8");
                                 // Get back to user!!!
                                 res.end(JSON.stringify(crimes));
                             });
