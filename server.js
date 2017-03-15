@@ -234,7 +234,7 @@ app.post('/crime-cat-data', function(req, res) {
         } else if (response.statusCode == 503) {
           console.log("FAIL - 503");
           console.log("CUT ON 2...");
-          splitResponses = [];
+          var splitResponses = [];
 
           var slicedPoly = splitOn2(poly);
           var pols = [convertToPoly(slicedPoly[0]), convertToPoly(slicedPoly[1])];
