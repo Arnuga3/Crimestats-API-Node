@@ -252,7 +252,7 @@ app.post('/crime-cat-data', function(req, res) {
               } else if (response.statusCode == 503) {
                 console.log("FAIL ON2 - 503");
                 console.log("CUT ON 4...");
-                splitResponses = [];
+                var splitResponses1 = [];
 
                 var slicedPoly = splitOn4(poly);
                 var pols = [convertToPoly(slicedPoly[0]), convertToPoly(slicedPoly[1]),
@@ -266,13 +266,13 @@ app.post('/crime-cat-data', function(req, res) {
                   }, function(error, response, body) {
                     if(response.statusCode == 200) {
                         var crimeData = JSON.parse(body);
-                        splitResponses.push(crimeData);
+                        splitResponses1.push(crimeData);
                         callback();
                     } else if (response.statusCode == 503) {
 
                       console.log("FAIL ON4 - 503");
                       console.log("CUT ON 8...");
-                      splitResponses = [];
+                      var splitResponses2 = [];
 
                       var slicedPoly = splitOn8(poly);
                       var pols = [convertToPoly(slicedPoly[0]), convertToPoly(slicedPoly[1]),
@@ -288,7 +288,7 @@ app.post('/crime-cat-data', function(req, res) {
                         }, function(error, response, body) {
                           if(response.statusCode == 200) {
                               var crimeData = JSON.parse(body);
-                              splitResponses.push(crimeData);
+                              splitResponses2.push(crimeData);
                               callback();
                           } else if (response.statusCode == 503) {
 
@@ -303,7 +303,7 @@ app.post('/crime-cat-data', function(req, res) {
                               crimes[categories[i]] = [];
                             }
 
-                            async.each(splitResponses, function(resp, callback) {
+                            async.each(splitResponses2, function(resp, callback) {
                               var crimeData = resp;
                               // Loop through the crimes
                               for(var i=0;i<crimeData.length; i++) {
@@ -338,7 +338,7 @@ app.post('/crime-cat-data', function(req, res) {
                         crimes[categories[i]] = [];
                       }
 
-                      async.each(splitResponses, function(resp, callback) {
+                      async.each(splitResponses1, function(resp, callback) {
                         var crimeData = resp;
                         // Loop through the crimes
                         for(var i=0;i<crimeData.length; i++) {
