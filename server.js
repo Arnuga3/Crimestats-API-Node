@@ -181,7 +181,6 @@ app.post('/crime-cat-data', function(req, res) {
                   'https://data.police.uk/api/crimes-street/all-crime?poly=' + convertToPoly(poly)];
   // Array to store responses
   var responses = [];
-  var splitResponses = [];
   // Array to store crime category names
   var categories = [];
   // Object to store crimes grouped by category
