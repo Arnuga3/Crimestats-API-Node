@@ -252,7 +252,7 @@ app.post('/crime-cat-data', function(req, res) {
               if(response.statusCode == 200) {
                   var crimeData = JSON.parse(body);
                   splitResponses.push(JSON.parse(body));
-                  console.log("Response Volume: " + crimeData.length);
+                  console.log("2 Response Volume: " + crimeData.length);
                   console.log();
                   callback();
               } else if (response.statusCode == 503) {
@@ -285,7 +285,7 @@ app.post('/crime-cat-data', function(req, res) {
                   if(response.statusCode == 200) {
                       var crimeData = JSON.parse(body);
                       splitResponses.push(crimeData);
-                      console.log("Response Volume: " + crimeData.length);
+                      console.log("4 Response Volume: " + crimeData.length);
                       callback();
                   } else if (response.statusCode == 503) {
 
