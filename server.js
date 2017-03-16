@@ -309,7 +309,6 @@ app.post('/crime-cat-data', function(req, res) {
                       if(response.statusCode == 200) {
                           var crimeData = JSON.parse(body);
                           splitResponses2.push(crimeData);
-                          console.log(splitResponses2.length);
                           callback();
                       } else if (response.statusCode == 503) {
 
@@ -327,6 +326,8 @@ app.post('/crime-cat-data', function(req, res) {
                         c("Request Failed");
                         // Handle break out of async here
                      } else {
+
+                       console.log(splitResponses2.length);
                          // Create properties (category names) and add empty arrays to them inside the crimes object
                          for(var i=0;i<categories.length; i++) {
                            crimes[categories[i]] = [];
