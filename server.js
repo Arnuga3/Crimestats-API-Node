@@ -183,6 +183,7 @@ app.post('/crime-cat-data', function(req, res) {
   var responses = [];
   // Array to store crime category names
   var categories = [];
+  var splitResponses = [];
   // Object to store crimes grouped by category
   var crimes = {};
 
@@ -235,7 +236,7 @@ app.post('/crime-cat-data', function(req, res) {
 
           console.log("FAIL - 503");
           console.log("CUT ON 2...");
-          var splitResponses = [];
+          splitResponses = [];
 
           var slicedPoly = splitOn2(poly);
           var pols = [convertToPoly(slicedPoly[0]), convertToPoly(slicedPoly[1])];
@@ -262,7 +263,7 @@ app.post('/crime-cat-data', function(req, res) {
 
               console.log("FAIL ON2 - 503");
               console.log("CUT ON 4...");
-              var splitResponses1 = [];
+             splitResponses = [];
 
               var slicedPoly = splitOn4(poly);
               var pols = [convertToPoly(slicedPoly[0]), convertToPoly(slicedPoly[1]),
@@ -276,7 +277,7 @@ app.post('/crime-cat-data', function(req, res) {
                 }, function(error, response, body) {
                   if(response.statusCode == 200) {
                       var crimeData = JSON.parse(body);
-                      splitResponses1.push(crimeData);
+                      splitResponses.push(crimeData);
                       callback();
                   } else if (response.statusCode == 503) {
 
@@ -292,7 +293,7 @@ app.post('/crime-cat-data', function(req, res) {
 
                   console.log("FAIL ON4 - 503");
                   console.log("CUT ON 8...");
-                  var splitResponses2 = [];
+                  splitResponses = [];
 
                   var slicedPoly = splitOn8(poly);
                   var pols = [convertToPoly(slicedPoly[0]), convertToPoly(slicedPoly[1]),
@@ -308,7 +309,7 @@ app.post('/crime-cat-data', function(req, res) {
                     }, function(error, response, body) {
                       if(response.statusCode == 200) {
                           var crimeData = JSON.parse(body);
-                          splitResponses2.push(crimeData);
+                          splitResponses.push(crimeData);
                           callback();
                       } else if (response.statusCode == 503) {
 
@@ -327,13 +328,12 @@ app.post('/crime-cat-data', function(req, res) {
                         // Handle break out of async here
                      } else {
 
-                       console.log(splitResponses2.length);
                          // Create properties (category names) and add empty arrays to them inside the crimes object
                          for(var i=0;i<categories.length; i++) {
                            crimes[categories[i]] = [];
                          }
 
-                         async.each(splitResponses2, function(resp, callback) {
+                         async.each(splitResponses, function(resp, callback) {
                            var crimeData = resp;
                            // Loop through the crimes
                            for(var i=0;i<crimeData.length; i++) {
@@ -365,7 +365,7 @@ app.post('/crime-cat-data', function(req, res) {
                       crimes[categories[i]] = [];
                     }
 
-                    async.each(splitResponses1, function(resp, callback) {
+                    async.each(splitResponses, function(resp, callback) {
                       var crimeData = resp;
                       // Loop through the crimes
                       for(var i=0;i<crimeData.length; i++) {
