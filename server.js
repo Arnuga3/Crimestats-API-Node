@@ -277,6 +277,7 @@ app.post('/crime-cat-data', function(req, res) {
                   if(response.statusCode == 200) {
                       var crimeData = JSON.parse(body);
                       splitResponses1.push(crimeData);
+                      callback();
                   } else if (response.statusCode == 503) {
 
                     var err = new Error('Broke out of async');
@@ -284,7 +285,6 @@ app.post('/crime-cat-data', function(req, res) {
                     return callback(err);
                   }
                 });
-                callback();
 
               }, function(err) {
 
@@ -309,6 +309,7 @@ app.post('/crime-cat-data', function(req, res) {
                       if(response.statusCode == 200) {
                           var crimeData = JSON.parse(body);
                           splitResponses2.push(crimeData);
+                          callback();
                       } else if (response.statusCode == 503) {
 
                         var err = new Error('Broke out of async');
@@ -318,7 +319,7 @@ app.post('/crime-cat-data', function(req, res) {
                         console.log(response.statusCode);
                       }
                     });
-                    callback();
+
                   }, function(err) {
 
                     if (err && err.break) {
