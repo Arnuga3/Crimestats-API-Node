@@ -251,7 +251,7 @@ app.post('/crime-cat-data', function(req, res) {
             }, function(error, response, body) {
               if(response.statusCode == 200) {
                   var crimeData = JSON.parse(body);
-                  splitResponses.push(crimeData);
+                  splitResponses.push(JSON.parse(body));
                   console.log("Response Volume: " + crimeData.length);
                   console.log();
                   callback();
@@ -269,7 +269,7 @@ app.post('/crime-cat-data', function(req, res) {
               console.log("CUT ON 4...");
               console.log("responses refreshed");
 
-             splitResponses = [];
+              var splitResponses = [];
 
               var slicedPoly = splitOn4(poly);
               var pols = [convertToPoly(slicedPoly[0]), convertToPoly(slicedPoly[1]),
@@ -277,6 +277,7 @@ app.post('/crime-cat-data', function(req, res) {
               //console.log(pols);
               //console.log("POLY: " + pols[0]);
               async.each(pols, function(el, callback) {
+                console.log("Poly  - " + el);
                 request.get({
                   headers: {'Content-Type': 'application/json'},
                   url: 'https://data.police.uk/api/crimes-street/all-crime?poly=' + el
@@ -284,6 +285,7 @@ app.post('/crime-cat-data', function(req, res) {
                   if(response.statusCode == 200) {
                       var crimeData = JSON.parse(body);
                       splitResponses.push(crimeData);
+                      console.log("Response Volume: " + crimeData.length);
                       callback();
                   } else if (response.statusCode == 503) {
 
