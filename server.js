@@ -244,6 +244,7 @@ app.post('/crime-cat-data', function(req, res) {
 
           //console.log("POLY: " + pols[0]);
           async.each(pols, function(el, callback) {
+            console.log("Poly  - " + this);
             request.get({
               headers: {'Content-Type': 'application/json'},
               url: 'https://data.police.uk/api/crimes-street/all-crime?poly=' + el
@@ -251,6 +252,8 @@ app.post('/crime-cat-data', function(req, res) {
               if(response.statusCode == 200) {
                   var crimeData = JSON.parse(body);
                   splitResponses.push(crimeData);
+                  console.log("Response Volume: " + crimeData.length);
+                  console.log();
                   callback();
               } else if (response.statusCode == 503) {
                   var err = new Error('Broke out of async');
