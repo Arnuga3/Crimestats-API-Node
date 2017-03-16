@@ -244,7 +244,7 @@ app.post('/crime-cat-data', function(req, res) {
 
           //console.log("POLY: " + pols[0]);
           async.each(pols, function(el, callback) {
-            console.log("Poly  - " + convertToPoly(this));
+            console.log("Poly  - " + convertToPoly(el));
             request.get({
               headers: {'Content-Type': 'application/json'},
               url: 'https://data.police.uk/api/crimes-street/all-crime?poly=' + el
