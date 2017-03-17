@@ -237,7 +237,7 @@ app.post('/crime-cat-data', function(req, res) {
           console.log("FAIL - 503");
           console.log("CUT ON 2...");
           console.log("responses refreshed");
-          var splitResponses = [];
+          splitResponses = [];
 
           var slicedPoly = splitOn2(poly);
           var pols = [convertToPoly(slicedPoly[0]), convertToPoly(slicedPoly[1])];
@@ -269,7 +269,7 @@ app.post('/crime-cat-data', function(req, res) {
               console.log("CUT ON 4...");
               console.log("responses refreshed");
 
-              var splitResponses = [];
+              splitResponses = [];
 
               var slicedPoly = splitOn4(poly);
               var pols = [convertToPoly(slicedPoly[0]), convertToPoly(slicedPoly[1]),
@@ -302,7 +302,7 @@ app.post('/crime-cat-data', function(req, res) {
                   console.log("FAIL ON4 - 503");
                   console.log("CUT ON 8...");
                   console.log("responses refreshed");
-                  var splitResponses = [];
+                  splitResponses = [];
 
                   var slicedPoly = splitOn8(poly);
                   var pols = [convertToPoly(slicedPoly[0]), convertToPoly(slicedPoly[1]),
