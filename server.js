@@ -320,7 +320,7 @@ app.post('/crime-cat-data', function(req, res) {
                       if(response.statusCode == 200) {
                           var crimeData = JSON.parse(body);
                           splitResponses.push(crimeData);
-                          console.log("4 Response Volume: " + crimeData.length);
+                          console.log("8 Response Volume: " + crimeData.length);
                           callback();
                       } else if (response.statusCode == 503) {
 
