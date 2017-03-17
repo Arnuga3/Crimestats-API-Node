@@ -244,7 +244,7 @@ app.post('/crime-cat-data', function(req, res) {
 
           //console.log("POLY: " + pols[0]);
           async.each(pols, function(el, callback) {
-            console.log("Poly  - " + el);
+            console.log("2 Poly  - " + el);
             request.get({
               headers: {'Content-Type': 'application/json'},
               url: 'https://data.police.uk/api/crimes-street/all-crime?poly=' + el
@@ -277,7 +277,7 @@ app.post('/crime-cat-data', function(req, res) {
               //console.log(pols);
               //console.log("POLY: " + pols[0]);
               async.each(pols, function(el, callback) {
-                console.log("Poly  - " + el);
+                console.log("4 Poly  - " + el);
                 request.get({
                   headers: {'Content-Type': 'application/json'},
                   url: 'https://data.police.uk/api/crimes-street/all-crime?poly=' + el
