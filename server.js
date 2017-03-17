@@ -198,7 +198,7 @@ app.post('/crime-cat-data', function(req, res) {
       for(var i=0; i<data.length; i++) {
         categories.push(data[i].url);
       }
-
+      console.log(requests[1]);
       // Second request - get crimes within a poly
       request.get({
         headers: {'Content-Type': 'application/json'},
