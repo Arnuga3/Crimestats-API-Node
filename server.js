@@ -180,7 +180,7 @@ app.post('/crime-cat-data', function(req, res) {
   // GET request using 'request module'
   // Two requests stored in array
   var requests = ['https://data.police.uk/api/crime-categories',
-                  'https://data.police.uk/api/crimes-street/all-crime?poly=' + convertToPoly(poly)] + '&date=' + month;
+                  'https://data.police.uk/api/crimes-street/all-crime?poly=' + convertToPoly(poly) + '&date=' + month];
   // Array to store responses
   var responses = [];
   // Array to store crime category names
@@ -249,7 +249,7 @@ app.post('/crime-cat-data', function(req, res) {
             console.log("2 Poly  - " + el);
             request.get({
               headers: {'Content-Type': 'application/json'},
-              url: 'https://data.police.uk/api/crimes-street/all-crime?poly=' + el
+              url: 'https://data.police.uk/api/crimes-street/all-crime?poly=' + el + '&date=' + month
             }, function(error, response, body) {
               if(response.statusCode == 200) {
                   var crimeData = JSON.parse(body);
