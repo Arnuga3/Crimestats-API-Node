@@ -78,6 +78,8 @@ function splitOn8(bigPoly) {
   return [pair1[0], pair1[1], pair2[0], pair2[1], pair3[0], pair3[1], pair4[0], pair4[1]];
 }
 
+
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -173,12 +175,12 @@ app.post('/crime-cat-data', function(req, res) {
   // POST variables
   var obj = JSON.parse(req.body.data);
   var poly = obj.poly;
-  var period = obj.period;
+  var month = obj.month;
 
   // GET request using 'request module'
   // Two requests stored in array
   var requests = ['https://data.police.uk/api/crime-categories',
-                  'https://data.police.uk/api/crimes-street/all-crime?poly=' + convertToPoly(poly)];
+                  'https://data.police.uk/api/crimes-street/all-crime?poly=' + convertToPoly(poly)] + '&date=' + month;
   // Array to store responses
   var responses = [];
   // Array to store crime category names
