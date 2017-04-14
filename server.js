@@ -314,7 +314,7 @@ app.post('/crime-cat-data', function(req, res) {
               if(response.statusCode == 200) {
                   var crimeData = JSON.parse(body);
                   splitResponses.push(JSON.parse(body));
-                  console.log("TOTAL NUMBER OF CRIMES FROM 2 REQUESTS: " + crimeData.length);
+                  console.log("TOTAL NUMBER OF CRIMES FROM <2> REQUESTS: " + crimeData.length);
                   callback();
               // On fail of the any of the requests, stop other requests
               } else if (response.statusCode == 503) {
@@ -347,7 +347,7 @@ app.post('/crime-cat-data', function(req, res) {
                   if(response.statusCode == 200) {
                       var crimeData = JSON.parse(body);
                       splitResponses.push(crimeData);
-                      console.log("TOTAL NUMBER OF CRIMES FROM 4 REQUESTS: " + crimeData.length);
+                      console.log("TOTAL NUMBER OF CRIMES FROM <4> REQUESTS: " + crimeData.length);
                       callback();
                   // On fail of the any of the requests, stop other requests
                   } else if (response.statusCode == 503) {
@@ -383,7 +383,7 @@ app.post('/crime-cat-data', function(req, res) {
                       if(response.statusCode == 200) {
                           var crimeData = JSON.parse(body);
                           splitResponses.push(crimeData);
-                          console.log("TOTAL NUMBER OF CRIMES FROM 8 REQUESTS: " + crimeData.length);
+                          console.log("TOTAL NUMBER OF CRIMES FROM <8> REQUESTS: " + crimeData.length);
                           callback();
                       } else if (response.statusCode == 503) {
 
