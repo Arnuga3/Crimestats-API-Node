@@ -190,6 +190,7 @@ app.post('/neighbourhood/details', function(req,res) {
     url: 'https://data.police.uk/api/' + force + '/' + neighbourhood
   }, function(error, response, body){
     // Return to a client
+    console.log(body);
     res.end(body);
   });
 });
